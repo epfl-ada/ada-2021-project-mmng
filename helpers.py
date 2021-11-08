@@ -1,0 +1,8 @@
+
+DATA_FOLDER = 'data/'
+
+QUOTES_2020_PATH = DATA_FOLDER + 'quotes-2020.json.bz2'
+QUOTES_2019_PATH = DATA_FOLDER + 'quotes-quotes-2019.json.bz2'
+# QUOTES_2018_PATH = DATA_FOLDER + ''
+
+
