@@ -85,8 +85,8 @@ with pd.read_json(QUOTES_2020_PATH, lines=True, compression='bz2', chunksize=100
             # json.dump(df_merged_chunk, d_file)
 
             i += 1
-            # if i >= 10:
-            #     break
+            if i >= 10:
+                break
 
 
 # print(chunk)
