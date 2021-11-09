@@ -73,8 +73,9 @@ def quotes_clean(df_quotes):
 i=0
 
 with pd.read_json(QUOTES_2020_PATH, lines=True, compression='bz2', chunksize=100000) as df_reader:
-    # with open(DATA_FOLDER + 'quotes-2020-party_labeled.json', 'wb') as d_file:
-    with bz2.open(DATA_FOLDER + 'quotes-2020-party_labeled.json.bz2', 'wb') as d_file:
+    # with open(QUOTES_2020_PARTY_LABELED_MINI_PATH, 'wb') as d_file:
+    with bz2.open(QUOTES_2020_PARTY_LABELED_SMALL_PATH, 'wb') as d_file:
+    # with bz2.open(QUOTES_2020_PARTY_LABELED_PATH, 'wb') as d_file:
         for df_quotes_chunk in df_reader:
             print(i)
 
@@ -82,7 +83,6 @@ with pd.read_json(QUOTES_2020_PATH, lines=True, compression='bz2', chunksize=100
 
             df_merged_chunk = df_quotes_clean_chunk.merge(df_sa_party_labeled, left_on='top_qid', right_on='id').drop(['top_qid', 'label'], axis=1)
             df_merged_chunk.to_json(d_file, orient='records', lines=True)
-            # json.dump(df_merged_chunk, d_file)
 
             i += 1
             if i >= 10:

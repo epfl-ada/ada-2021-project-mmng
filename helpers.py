@@ -1,4 +1,7 @@
 
+#=============================================================================
+# Raw/given data files
+
 # DATA_FOLDER = 'data/'
 DATA_FOLDER = 'data.nosync/'
 QUOTEBANK_FOLDER = DATA_FOLDER + 'quotebank/'
@@ -14,6 +17,17 @@ WIKIDATA_FOLDER = DATA_FOLDER + 'wikidata/'
 
 SPEAKER_ATTRIBUTES_PATH = WIKIDATA_FOLDER + 'speaker_attributes.parquet/'
 
+#=============================================================================
+# Small/mini versions of files for easily inspecting them
+
 # Folder is meant to contain small snapshots of data files
 DATA_MINI_FOLDER = 'data_mini/'
+QUOTES_2020_PARTY_LABELED_MINI_PATH = DATA_MINI_FOLDER + 'quotes-2020-party_labeled_mini.json'
 QUOTES_2020_PARTY_LABELED_SMALL_PATH = DATA_MINI_FOLDER + 'quotes-2020-party_labeled_small.json.bz2'
+
+#=============================================================================
+# Preprocessed files
+
+PREPROCESSED_FOLDER = DATA_FOLDER + 'processed/'
+
+QUOTES_2020_PARTY_LABELED_PATH = PREPROCESSED_FOLDER + 'quotes-2020-party_labeled.json.bz2'
