@@ -12,7 +12,7 @@ from helpers import *
 df_sa = pd.read_parquet(SPEAKER_ATTRIBUTES_PATH)
 
 # Only keep congress memebers (OPTIONAL, can be commented)
-df_sa.dropna(subset=['US_congress_bio_ID'], inplace=True)
+# df_sa.dropna(subset=['US_congress_bio_ID'], inplace=True)
 
 
 
@@ -44,7 +44,7 @@ def sa_label_parties(df_sa):
 
 
 def sa_keep_useful_stuff(df_sa):
-    return df_sa[['label', 'id', 'party_label']]
+    return df_sa[['label', 'id', 'party_label', 'US_congress_bio_ID']]
 
 
 df_sa_party_labeled = sa_keep_useful_stuff(sa_label_parties(df_sa))
@@ -75,7 +75,8 @@ i=0
 with pd.read_json(QUOTES_2020_PATH, lines=True, compression='bz2', chunksize=100000) as df_reader:
     # with open(QUOTES_2020_PARTY_LABELED_MINI_PATH, 'wb') as d_file:
     # with bz2.open(QUOTES_2020_PARTY_LABELED_SMALL_PATH, 'wb') as d_file:
-    with bz2.open(QUOTES_2020_PARTY_LABELED_CONGRESS_ONLY_PATH, 'wb') as d_file:
+    # with bz2.open(QUOTES_2020_PARTY_LABELED_CONGRESS_ONLY_PATH, 'wb') as d_file:
+    with bz2.open(QUOTES_2020_PARTY_LABELED_PATH, 'wb') as d_file:
         for df_quotes_chunk in df_reader:
             print(i)
 
