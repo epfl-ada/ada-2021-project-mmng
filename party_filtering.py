@@ -75,7 +75,7 @@ i=0
 with pd.read_json(QUOTES_2020_PATH, lines=True, compression='bz2', chunksize=100000) as df_reader:
     # with open(QUOTES_2020_PARTY_LABELED_MINI_PATH, 'wb') as d_file:
     # with bz2.open(QUOTES_2020_PARTY_LABELED_SMALL_PATH, 'wb') as d_file:
-    with bz2.open(QUOTES_2020_PARTY_LABELED_PATH, 'wb') as d_file:
+    with bz2.open(QUOTES_2020_PARTY_LABELED_CONGRESS_ONLY_PATH, 'wb') as d_file:
         for df_quotes_chunk in df_reader:
             print(i)
 

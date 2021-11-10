@@ -11,8 +11,8 @@ from helpers import *
 
 
 i=0
-with pd.read_json(QUOTES_2020_PARTY_LABELED_PATH, lines=True, compression='bz2', chunksize=100000) as df_reader:
-    with bz2.open(QUOTES_2020_PARTY_LABELED_CLEANED_PATH, 'wb') as d_file:
+with pd.read_json(QUOTES_2020_PARTY_LABELED_CONGRESS_ONLY_PATH, lines=True, compression='bz2', chunksize=100000) as df_reader:
+    with bz2.open(QUOTES_2020_PARTY_LABELED_CONGRESS_ONLY_CLEANED_PATH, 'wb') as d_file:
         for df_quotes_chunk in df_reader:
 
             print(i)
