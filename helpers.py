@@ -39,6 +39,14 @@ QUOTES_2020_PARTY_LABELED_CONGRESS_ONLY_TFIDF_PATH = PREPROCESSED_FOLDER + 'quot
 
 #=============================================================================
 
+# Fixing paths for different os's
+import os
+def fixpath(path):
+    return os.path.abspath(os.path.expanduser(path))
+
+
+#=============================================================================
+
 # import bz2
 # import json
 
@@ -47,9 +55,6 @@ QUOTES_2020_PARTY_LABELED_CONGRESS_ONLY_TFIDF_PATH = PREPROCESSED_FOLDER + 'quot
 # import texthero as hero
 
 import texthero.preprocessing as hp
-
-from helpers import *
-
 
 def clean(series):
     series = hp.fillna(series)
