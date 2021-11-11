@@ -17,7 +17,7 @@ Mauro Leidi, Gioele Monopoli, Nicky Baldwin, Michael Roust
 
 # Abstract
 In this project Quotebank is used to analyze American politics in depth. It is therefore necessary to label the quotes with their political inclination.
-Subsequently, a model is trained to predict the quote political inclination. In addition, thanks to the value predicted by the model, it is possible to analyze how polarized the prediction is, and therefore discover how much the quote is representative of the political vision of the political party itself. 
+Subsequently, a model is trained to predict the quote political inclination. In addition, thanks to the value predicted by the model, it is possible to analyze how polarized the prediction is, and therefore discover how much the quote is representative of the political vision of the political party itself.
 Using this model, all the quotes of one senator can be summarized in a time series of political scores. These time series can be used in various ways to extract meaningful insights about American politics. We will study the trend of the political position of a selected senator and how influential a politician is within his political group. The goal is to make these analyzes interactive and fast.
 # Research Questions
 The main questions we want to answer are:
@@ -32,7 +32,14 @@ Everything we have done is absolutely not to be seen as a definitive choice, but
 A summary of the workflow we have imagined is presented in the following image:
 ![](media/workflow.PNG)
 1) Merging Quotebank with wikidatas, keeping only senators quotes
-2) Preprocess data for the moment we are doing:  1) Replace not assigned values with empty spaces 2) Lowercase all text 3)Remove all blocks of digits 4) Remove all string.punctuation (!"#$%&'()*+,-./:;<=>?@[]^_`{|}~) 5) Remove all accents from strings 6) Remove all stop words 7)Remove all white space between words.
+2) Preprocess data for the moment we are doing:
+   1) Replace not assigned values with empty spaces
+   2) Lowercase all text
+   3) Remove all blocks of digits
+   4) Remove all string.punctuation (!"#$%&'()*+,-./:;<=>?@[]^_`{|}~)
+   5) Remove all accents from strings
+   6) Remove all stop words
+   7) Remove all white space between words.
 3) Vectorization of the data, for the moment we are representing data with the TF-IDF model. We encountered some RAM problems, but we found many solutions online thanks to algorithms that do not requirer the full dataset load in memory but works with chunks of data.
 4) Model creation: We need to create a model for classification. We have in mind two main approaches: 1. Using NLP trained models and fine tuning for our purpose. 2. Training a model from scratch with our data.
 5) Graphic User Interface creation and presentation of results.
