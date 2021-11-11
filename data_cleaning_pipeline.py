@@ -9,6 +9,8 @@ import texthero.preprocessing as hp
 
 from helpers import *
 
+from drop_similar_quotes import *
+
 input_filename = QUOTES_2020_PARTY_LABELED_PATH
 output_filename = QUOTES_2020_PARTY_LABELED_CLEANED_PATH
 
