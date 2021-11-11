@@ -13,6 +13,7 @@ QUOTES_2017_PATH = QUOTEBANK_FOLDER + 'quotes-2017.json.bz2'
 QUOTES_2016_PATH = QUOTEBANK_FOLDER + 'quotes-2016.json.bz2'
 QUOTES_2015_PATH = QUOTEBANK_FOLDER + 'quotes-2015.json.bz2'
 
+
 WIKIDATA_FOLDER = DATA_FOLDER + 'wikidata/'
 
 SPEAKER_ATTRIBUTES_PATH = WIKIDATA_FOLDER + 'speaker_attributes.parquet/'
@@ -36,6 +37,7 @@ QUOTES_2020_PARTY_LABELED_CLEANED_PATH = PREPROCESSED_FOLDER + 'quotes-2020-part
 QUOTES_2020_PARTY_LABELED_CONGRESS_ONLY_PATH = PREPROCESSED_FOLDER + 'quotes-2020-party_labeled_congress_only.json.bz2'
 QUOTES_2020_PARTY_LABELED_CONGRESS_ONLY_CLEANED_PATH = PREPROCESSED_FOLDER + 'quotes-2020-party_labeled_congress_only_cleaned.json.bz2'
 QUOTES_2020_PARTY_LABELED_CONGRESS_ONLY_TFIDF_PATH = PREPROCESSED_FOLDER + 'quotes-2020-party_labeled_congress_only_tfidf.json.bz2'
+QUOTES_2020_PARTY_LABELED_COMPLETE =  PREPROCESSED_FOLDER + 'quotes-2020-party_labeled_all_cols.json.bz2'
 
 #=============================================================================
 
