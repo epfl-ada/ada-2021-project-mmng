@@ -12,6 +12,8 @@ from helpers import *
 from prepro_party_labeling import *
 
 #=============================================================================
+# RUN PARAMETERS
+# Tweakable setting to control our pipeline
 
 # Input files
 raw_data_filepaths = [QUOTES_2020_PATH]
@@ -25,9 +27,17 @@ raw_data_filepaths = [QUOTES_2020_PATH]
 #     QUOTES_2020_PATH
 #     ]
 
+
 # Output files
 cleaned_labeled_filepath = QUOTES_2020_PARTY_LABELED_CLEANED_PATH
 # cleaned_labeled_filepath = QUOTES_PARTY_LABELED_CLEANED_PATH
+
+#-----------------------------------------------------------------------------
+# Pipeline control
+
+LABEL_PARTY = True      # labeling by merging with wikidata dump
+CLEAN_QUOTES = True     # clean quotes using clean function below
+CLEAN_SPEAKER = True    # clean speaker name (by applying str.lower())
 
 #=============================================================================
 # Preprocessing functions
@@ -75,16 +85,17 @@ with bz2.open(cleaned_labeled_filepath, 'wb') as d_file:
 
                 df = df_quotes_chunk.drop(['phase', 'urls', 'probas'], axis=1)
 
-                # df_quotes = df_quotes.drop('phase', axis=1).drop('urls', axis=1).drop('probas', axis=1)
+                # Merge quotes to speakers to get party labels
+                if LABEL_PARTY:
+                    df = merge_quotes_to_speakers(df, df_sa_labeled)
 
                 # Cleaning quotations
-                df['quotation'] = clean(df['quotation'])
+                if CLEAN_QUOTES:
+                    df['quotation'] = clean(df['quotation'])
 
                 # Cleaning speaker name
-                df['speaker'] = df['speaker'].apply(lambda x: x.lower())
-
-                # Merge quotes to speakers to get party labels
-                df = merge_quotes_to_speakers(df, df_sa_labeled)
+                if CLEAN_SPEAKER:
+                    df['speaker'] = df['speaker'].apply(lambda x: x.lower())
 
                 # write to output
                 df.to_json(d_file, orient='records', lines=True)
