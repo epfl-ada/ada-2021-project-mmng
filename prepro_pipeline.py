@@ -14,9 +14,16 @@ from prepro_party_labeling import *
 #=============================================================================
 
 # Input files
-raw_data_filepaths = [
-    QUOTES_2020_PATH
-    ]
+raw_data_filepaths = [QUOTES_2020_PATH]
+
+# raw_data_filepaths = [
+#     QUOTES_2015_PATH,
+#     QUOTES_2016_PATH,
+#     QUOTES_2017_PATH,
+#     QUOTES_2018_PATH,
+#     QUOTES_2019_PATH,
+#     QUOTES_2020_PATH
+#     ]
 
 # Output files
 cleaned_labeled_filepath = QUOTES_2020_PARTY_LABELED_CLEANED_PATH
