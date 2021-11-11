@@ -48,7 +48,7 @@ def remove_duplicates(dataframe,threshold):
 
         return to_remove
 
-    df = dataframe
+    df = dataframe.drop_duplicates(subset = 'quotation')
     #list of the dataframes that have been cleaned
     #every element of the list contains a dataframe wiht the quotes of a single speaker.
     #all quotes have a similarity < threshold among each other
