@@ -30,9 +30,9 @@ In order to deal with such a big dataset we are thinking about rewriting our dat
 Everything we have done is absolutely not to be seen as a definitive choice, but rather as a first exploration to see what results we can try to achieve. In this case, keeping other data from the wikidata such as sex or other characteristics of the speaker could greatly improve our method. To get a first idea of the difficulty of the task we faced, we have visualized the PCA of 40000 datapoints. As we can see the data does not appear linearly separable with such a simple method. As a second test we tried to predict the class thanks to a simple sklearn random forest classifier, the result is quite comforting, giving a cross-validation precision just under 70%.
 # Proposed timeline Organization within the team
 A summary of the workflow we have imagined is presented in the following image:
-![picture](https://github.com/epfl-ada/ada-2021-project-mmng.git/media/workflow.png)
+![picture](https://github.com/epfl-ada/ada-2021-project-mmng.git/media/workflow.PNG)
 1) Merging Quotebank with wikidatas, keeping only senators quotes
-2) Preprocess data for the moment we are doing:  1. Replace not assigned values with empty spaces, 2. Lowercase all text, 3.Remove all blocks of digits, 4. Remove all string.punctuation (!"#$%&'()*+,-./:;<=>?@[]^_`{|}~) , 5. Remove all accents from strings, 6. Remove all stop words, 7.Remove all white space between words.
+2) Preprocess data for the moment we are doing:  1) Replace not assigned values with empty spaces 2) Lowercase all text 3)Remove all blocks of digits 4) Remove all string.punctuation (!"#$%&'()*+,-./:;<=>?@[]^_`{|}~) 5) Remove all accents from strings 6) Remove all stop words 7)Remove all white space between words.
 3) Vectorization of the data, for the moment we are representing data with the TF-IDF model. We encountered some RAM problems, but we found many solutions online thanks to algorithms that do not requirer the full dataset load in memory but works with chunks of data.
 4) Model creation: We need to create a model for classification. We have in mind two main approaches: 1. Using NLP trained models and fine tuning for our purpose. 2. Training a model from scratch with our data.
 5) Graphic User Interface creation and presentation of results.
