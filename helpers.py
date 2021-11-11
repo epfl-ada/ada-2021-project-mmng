@@ -31,6 +31,8 @@ QUOTES_2020_PARTY_LABELED_SMALL_PATH = DATA_MINI_FOLDER + 'quotes-2020-party_lab
 
 PREPROCESSED_FOLDER = DATA_FOLDER + 'processed/'
 
+QUOTES_PARTY_LABELED_CLEANED_PATH = PREPROCESSED_FOLDER + 'quotes_party_labeled_cleaned.json.bz2'
+
 QUOTES_2020_PARTY_LABELED_PATH = PREPROCESSED_FOLDER + 'quotes-2020-party_labeled.json.bz2'
 QUOTES_2020_PARTY_LABELED_CLEANED_PATH = PREPROCESSED_FOLDER + 'quotes-2020-party_labeled_cleaned.json.bz2'
 
@@ -48,22 +50,3 @@ def fixpath(path):
 
 
 #=============================================================================
-
-# import bz2
-# import json
-
-# import pandas as pd
-
-# import texthero as hero
-
-import texthero.preprocessing as hp
-
-def clean(series):
-    series = hp.fillna(series)
-    series = hp.lowercase(series)
-    series = hp.remove_digits(series)
-    series = hp.remove_punctuation(series)
-    series = hp.remove_diacritics(series)
-    series = hp.remove_stopwords(series)
-    series = hp.remove_whitespace(series)
-    return series
