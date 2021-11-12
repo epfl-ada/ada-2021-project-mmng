@@ -2,19 +2,6 @@
 
 Mauro Leidi, Gioele Monopoli, Nicky Baldwin, Michael Roust
 
-- Readme.md file containing the detailed project proposal (up to 1000 words). Your README.md should contain:
-
-    - *Abstract: A 150 word description of the project idea and goals. What’s the motivation behind your project? What story would you like to tell, and why?*
-
-    - *Research Questions: A list of research questions you would like to address during the project.*
-
-    - *Proposed additional datasets (if any): List the additional dataset(s) you want to use (if any), and some ideas on how you expect to get, manage, process, and enrich it/them. Show us that you’ve read the docs and some examples, and that you have a clear idea on what to expect. Discuss data size and format if relevant. It is your responsibility to check that what you propose is feasible.*
-
-    - *Proposed timeline Organization within the team: A list of internal milestones up until project Milestone 3.
-    Questions for TAs (optional): Add here any questions you have for us related to the proposed project.*
-
-- Notebook containing initial analyses and data handling pipelines. We will grade the correctness, quality of code, and quality of textual descriptions.
-
 # Abstract
 In this project Quotebank is used to analyze American politics in depth. It is necessary to label the quotes with their political inclination.
 Subsequently, a model is trained to predict the quote political inclination. Thanks to the value predicted by the model, it is possible to analyze how polarized the prediction is, and therefore discover how much the quote is representative of the political vision of the political party itself.
@@ -74,3 +61,4 @@ The first question we ask ourselves is whether it is worth trying to identify ap
   - Cleans quotation text. Performs procedures such as lowercasing all characters, removing diacritics and more. See detailed description in
 - [prepro_party_labeling.py](prepro_party_labeling.py): Labels data by merging Quotebank quotes data to the Wikidata speaker_attributes dump. Any quotes that have no speaker attributed to them or have a speaker that is neither Republican or Democrat are dropped.
 - [perform_general_analysis.py](perform_general_analysis.py) Functions for raw full data exploration.
+- [drop_similar_quotes.py](drop_similar_quotes.py) Similar/duplicate quotes removal logic.
