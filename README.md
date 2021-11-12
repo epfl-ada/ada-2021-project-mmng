@@ -61,14 +61,19 @@ As we can see the data does not appear linearly separable with such a simple met
 # Questions for TAs
 The first question we ask ourselves is whether it is worth trying to identify apolitical messages as a supplementary class. For example we thought that if a politician, Democrat or Republican, makes a statement about sport it should not be classified as politics by our model. In this direction, the statements of some groups of people (such as sportspeople) could be classified as apolitical. However, this task remains difficult to do cleanly (a politician might be politically engaged) and we'd love to have some advice on it. Another solution to reduce the impact of this problem would be to look inside the urls for a substring that represent a topic not related to politics. For example if we find the word "gossip" in the url the quotation will not probably be a political statement. Therefore we can discard this quotation that would only bias our model. We repete this operation on multiple misleading keywords. Is this a good idea?
 # Code organization
-The code is organized in the following files:
-- final_notebook.ipynb: notebook containing all the in depth analysis of different distributions of the data that we need. We ran all the analysis on the 2020 datas in order to be faster.
-- raw_data_analysis.ipynb: notebook containig on surface analysis for the complete raw data (unlabeled).
-- helpers.py:
-- remove_duplicates.py:
-- merge_wikidatas.py:file 
-- clean_datas.py:file 
 
+### Notebooks
+- [raw_data_exploration.ipynb](raw_data_exploration.ipynb): Notebook containing surface analyses on the complete raw Quotebank dataset.
+- [final_data_exploration.ipynb](final_data_exploration.ipynb): Notebook containing all the in depth analyses of the data. Analyses are ran on (at times samples of) raw and cleaned 2020 datas as performing them on the full dataset would be largely impractical and provide little added benefit.
 
+### Scripts and project wide utilities
+- [helpers.py](helpers.py): Project wide constants, file paths, helper and utility functions.
+- [prepro_pipeline.py](prepro_pipeline.py): Executable that perfoms the 1st part of our data preprocessing pipeline. Currently performs the following operations:
+  - Labels quotes by the political party (Republican or Democrat) of the speaker attributed to each quote. Using functions from [prepro_party_labeling.py](prepro_party_labeling.py)
+  - Drops unused columns to reduce dataset footprint.
+  - Cleans quotation text. Performs procedures such as lowercasing all characters, removing diacritics and more. See detailed description in
+- [prepro_party_labeling.py](prepro_party_labeling.py): Labels data by merging Quotebank quotes data to the Wikidata speaker_attributes dump. Any quotes that have no speaker attributed to them or have a speaker that is neither Republican or Democrat are dropped.
+- [prepro_pipeline2.py](prepro_pipeline2.py)
+- [prepro_pipeline2.py](prepro_pipeline2.py)
 
 
