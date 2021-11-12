@@ -18,13 +18,13 @@ Mauro Leidi, Gioele Monopoli, Nicky Baldwin, Michael Roust
 # Abstract
 In this project Quotebank is used to analyze American politics in depth. It is necessary to label the quotes with their political inclination.
 Subsequently, a model is trained to predict the quote political inclination. Thanks to the value predicted by the model, it is possible to analyze how polarized the prediction is, and therefore discover how much the quote is representative of the political vision of the political party itself.
-Using this model, quotes of one senator can be summarized in a time series of political scores. These time series can be used in various ways to extract meaningful insights about American politics. We will study the trend of the political position of a selected senator and how influential a politician is within his political group. The goal is to allow users to make these customized and fast analysis. We will focus on the classification between Republicans and Democrats.
+Using this model, quotes of one politician can be summarized in a time series of political scores. These time series can be used in various ways to extract meaningful insights about American politics. We will study the trend of the political position of a selected politician and how influential a politician is within his political group. The goal is to allow users to make these customized and fast analysis. We will focus on the classification between Republicans and Democrats.
 ![](media/TimeSerie.PNG)
 # Research Questions
 The main questions we want to answer are:
-- How does a senator's political vision evolve over time?
-- How much is a senator influenced by the statements of another senator?
-- How influential is a senator within a political group?
+- How does a politician's political vision evolve over time?
+- How much is a politician influenced by the statements of another politician?
+- How influential is a politician within a political group?
 One of the advantages of our approach is that it is not specific to the questions posed above, therefore once the model is created it is easy to be able to answer other different questions as well. For example, we would be able to see which party members have more distant positions or which members of different parties have a higher negative correlation.
 # Proposed timeline Organization within the team
 A summary of the workflow we have imagined is presented in the following image:
@@ -63,7 +63,7 @@ The first question we ask ourselves is whether it is worth trying to identify ap
 # Code organization
 
 ### Notebooks
-- [raw_data_exploration.ipynb](raw_data_exploration.ipynb): Notebook containing surface analyses on the complete raw Quotebank dataset.
+- [raw_full_data_exploration.ipynb](raw_full_data_exploration.ipynb): Notebook containing surface analyses on the complete raw Quotebank dataset.
 - [final_data_exploration.ipynb](final_data_exploration.ipynb): Notebook containing all the in depth analyses of the data. Analyses are ran on (at times samples of) raw and cleaned 2020 datas as performing them on the full dataset would be largely impractical and provide little added benefit.
 
 ### Scripts and project wide utilities
@@ -73,7 +73,4 @@ The first question we ask ourselves is whether it is worth trying to identify ap
   - Drops unused columns to reduce dataset footprint.
   - Cleans quotation text. Performs procedures such as lowercasing all characters, removing diacritics and more. See detailed description in
 - [prepro_party_labeling.py](prepro_party_labeling.py): Labels data by merging Quotebank quotes data to the Wikidata speaker_attributes dump. Any quotes that have no speaker attributed to them or have a speaker that is neither Republican or Democrat are dropped.
-- [prepro_pipeline2.py](prepro_pipeline2.py)
-- [prepro_pipeline2.py](prepro_pipeline2.py)
-
-
+- [perform_general_analysis.py](perform_general_analysis.py) Functions for raw full data exploration.
