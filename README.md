@@ -63,7 +63,7 @@ The first question we ask ourselves is whether it is worth trying to identify ap
 # Code organization
 
 ### Notebooks
-- [raw_data_exploration.ipynb](raw_data_exploration.ipynb): Notebook containing surface analyses on the complete raw Quotebank dataset.
+- [raw_full_data_exploration.ipynb](raw_full_data_exploration.ipynb): Notebook containing surface analyses on the complete raw Quotebank dataset.
 - [final_data_exploration.ipynb](final_data_exploration.ipynb): Notebook containing all the in depth analyses of the data. Analyses are ran on (at times samples of) raw and cleaned 2020 datas as performing them on the full dataset would be largely impractical and provide little added benefit.
 
 ### Scripts and project wide utilities
@@ -73,7 +73,4 @@ The first question we ask ourselves is whether it is worth trying to identify ap
   - Drops unused columns to reduce dataset footprint.
   - Cleans quotation text. Performs procedures such as lowercasing all characters, removing diacritics and more. See detailed description in
 - [prepro_party_labeling.py](prepro_party_labeling.py): Labels data by merging Quotebank quotes data to the Wikidata speaker_attributes dump. Any quotes that have no speaker attributed to them or have a speaker that is neither Republican or Democrat are dropped.
-- [prepro_pipeline2.py](prepro_pipeline2.py)
-- [prepro_pipeline2.py](prepro_pipeline2.py)
-
-
+- [perform_general_analysis.py](perform_general_analysis.py) Functions for raw full data exploration.
