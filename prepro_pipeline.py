@@ -4,12 +4,12 @@ import json
 
 import pandas as pd
 
-import texthero as hero
-
 import texthero.preprocessing as hp
 
 from helpers import *
 from prepro_party_labeling import *
+
+import sys
 
 #=============================================================================
 # RUN PARAMETERS
@@ -17,7 +17,6 @@ from prepro_party_labeling import *
 
 # Input files
 raw_data_filepaths = [QUOTES_2020_PATH]
-
 # raw_data_filepaths = [
 #     QUOTES_2015_PATH,
 #     QUOTES_2016_PATH,
@@ -34,6 +33,8 @@ cleaned_labeled_filepath = QUOTES_2020_PARTY_LABELED_CLEANED_PATH
 
 #-----------------------------------------------------------------------------
 # Pipeline control
+
+QUOTES_DROP_COLS = ['phase', 'urls', 'probas']
 
 LABEL_PARTY = True      # labeling by merging with wikidata dump
 CLEAN_QUOTES = True     # clean quotes using clean function below
@@ -83,7 +84,8 @@ with bz2.open(cleaned_labeled_filepath, 'wb') as d_file:
         with pd.read_json(raw_data_filepath, lines=True, compression='bz2', chunksize=100000) as df_reader:
             for df_quotes_chunk in df_reader:
 
-                df = df_quotes_chunk.drop(['phase', 'urls', 'probas'], axis=1)
+                # TODO make this configurable too
+                df = df_quotes_chunk.drop(QUOTES_DROP_COLS, axis=1)
 
                 # Merge quotes to speakers to get party labels
                 if LABEL_PARTY:
@@ -102,6 +104,7 @@ with bz2.open(cleaned_labeled_filepath, 'wb') as d_file:
 
                 # Print progress
                 print(i, end='  ')
+                sys.stdout.flush()
                 i += 1
                 # if i >= 10: # Uncomment to not run on full file
                 #     break
