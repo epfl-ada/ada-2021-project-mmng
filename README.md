@@ -37,7 +37,7 @@ A summary of the workflow we have imagined is presented in the following image:
    4) Remove all string.punctuation (!"#$%&'()*+,-./:;<=>?@[]^_`{|}~)
    5) Remove all accents from strings
    6) Remove all stop words
-   7) Remove all white space between words.
+   7) Remove all extra white spaces at the end of a quote.
 3) Vectorization of the data, for the moment we are representing data with the TF-IDF model. We encountered some RAM problems, but we found many solutions online thanks to algorithms that do not requirer the full dataset load in memory but works with chunks of data.
 4) Model creation: We need to create a model for classification. We have in mind two main approaches: 1. Training a model from scratch with our data. 3. Using NLP pretrained models and fine tuning for our purpose (we still need to study if this is feasible).
 5) Graphic User Interface creation and presentation of results.
