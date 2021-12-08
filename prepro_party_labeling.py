@@ -47,6 +47,7 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
         REPUBLICAN_QID = 'Q29468'
         DEMOCRAT_QID = 'Q29552'
 
+
         # TODO Possible improvement have a more advanced rule for when a person
         # is affiliatied to both parties.
         if REPUBLICAN_QID in parties and DEMOCRAT_QID in parties:
@@ -58,12 +59,23 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
         else:
             return None
 
+    def onlyPolitician(occupation):
+        POLITICIAN = 'Q82955'
+        result = False
+        if occupation is not None:
+            if POLITICIAN in occupation:
+                result = True
+        return result
+
     def sa_label_parties(df_sa, labeler):
         # Filter out anyone who doesn't have any party assigned to them
         df_has_party = df_sa[df_sa['party'].notna()].copy()
 
         # Use function label_party to assign single letter party code to each row
         df_has_party['party_label'] = df_has_party['party'].map(label_party_usa)
+
+        # Drop non politician quotes
+        df_has_party = df_has_party[df_has_party.apply(lambda x: onlyPolitician(x.occupation), axis=1)]
 
         # Drop any person that didn't get attributed a party_label
         df_has_party.dropna(subset=['party_label'], inplace=True)

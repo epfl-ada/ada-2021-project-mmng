@@ -29,9 +29,22 @@ DATA_MINI_FOLDER = 'data_mini/'
 #=============================================================================
 # Preprocessed files
 
-DATA_FOLDER = DATA_MINI_FOLDER
+DATA_FOLDER = 'data.nosync/' #DATA_MINI_FOLDER
 
 PREPROCESSED_FOLDER = DATA_FOLDER + 'processed/'
+GLOVE_EMBEDDING_FOLDER = DATA_FOLDER +'glove/'
+GLOVE_EMBEDDING_TWITTER = DATA_FOLDER + 'glove_twitter/'
+
+GLOVE_300D = GLOVE_EMBEDDING_FOLDER + 'glove.6B.300d.txt'
+GLOVE_50D = GLOVE_EMBEDDING_FOLDER + 'glove.6B.50d.txt'
+GLOVE_100D = GLOVE_EMBEDDING_FOLDER + 'glove.6B.100d.txt'
+GLOVE_200D = GLOVE_EMBEDDING_FOLDER + 'glove.6B.200d.txt'
+GLOVE_840_300D = GLOVE_EMBEDDING_FOLDER + 'glove.840B.300d.txt'
+
+GLOVE_TWITTER_25D = GLOVE_EMBEDDING_TWITTER + 'glove.twitter.27B.25d.txt'
+GLOVE_TWITTER_50D = GLOVE_EMBEDDING_TWITTER + 'glove.twitter.27B.50d.txt'
+GLOVE_TWITTER_100D = GLOVE_EMBEDDING_TWITTER + 'glove.twitter.27B.100d.txt'
+GLOVE_TWITTER_200D = GLOVE_EMBEDDING_TWITTER + 'glove.twitter.27B.200d.txt'
 
 QUOTES_PARTY_LABELED_CLEANED_PATH = PREPROCESSED_FOLDER + 'quotes_party_labeled_cleaned.json.bz2'
 
@@ -47,7 +60,11 @@ QUOTES_2020_PARTY_LABELED_CONGRESS_ONLY_CLEANED_PATH = PREPROCESSED_FOLDER + 'qu
 QUOTES_2020_PARTY_LABELED_CONGRESS_ONLY_TFIDF_PATH = PREPROCESSED_FOLDER + 'quotes-2020-party_labeled_congress_only_tfidf.json.bz2'
 QUOTES_2020_PARTY_LABELED_COMPLETE =  PREPROCESSED_FOLDER + 'quotes-2020-party_labeled_all_cols.json.bz2'
 QUOTES_2020_PARTY_LABELED_NO_DUPLICATES = PREPROCESSED_FOLDER + 'quotes-2020-party_no_duplicates.json.bz2'
+QUOTES_2020_PARTY_LABELED_WITH_STOP_WORDS = PREPROCESSED_FOLDER +  'keep_stop_words.json.bz2'
 
+QUOTES_2020_EMBEDDED_TWITTER = PREPROCESSED_FOLDER + 'glove_encoded_df.json.bz2'
+
+QUOTES_2020_FOR_BERT = PREPROCESSED_FOLDER + 'bert_preprocessing_keep_lower_case.json.bz2'
 #=============================================================================
 
 # Fixing paths for different os's
