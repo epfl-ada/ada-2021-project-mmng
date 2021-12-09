@@ -28,8 +28,7 @@ raw_data_filepaths = [
 
 
 # Output files
-cleaned_labeled_filepath = PREPROCESSED_FOLDER + 'fulldataset_fullypreprocessed.json.bz2'
-# cleaned_labeled_filepath = QUOTES_PARTY_LABELED_CLEANED_PATH
+cleaned_labeled_filepath = QUOTES_LABELED_CLEANED_PATH
 
 #-----------------------------------------------------------------------------
 # Pipeline control

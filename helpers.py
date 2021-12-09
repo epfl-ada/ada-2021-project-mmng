@@ -34,6 +34,21 @@ DATA_FOLDER = 'data.nosync/' #DATA_MINI_FOLDER
 
 PREPROCESSED_FOLDER = DATA_FOLDER + 'processed/'
 
+#-----------------------------------------------------------------------------
+# New file sets
+
+# File for final version of labeled and cleaned data WIP
+QUOTES_LABELED_CLEANED_PATH = PREPROCESSED_FOLDER + 'quotes_labeled_cleaned.json.bz2'
+
+# These files are to find the optimal level of cleaning
+QUOTES_2020_LABELED_CLEANED_A = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_a.json.bz2'
+QUOTES_2020_LABELED_CLEANED_B = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_b.json.bz2'
+QUOTES_2020_LABELED_CLEANED_C = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_c.json.bz2'
+QUOTES_2020_LABELED_CLEANED_D = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_d.json.bz2'
+QUOTES_2020_LABELED_CLEANED_E = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_e.json.bz2'
+
+#-----------------------------------------------------------------------------
+
 QUOTES_ALL_TIME_PROCESSED = PREPROCESSED_FOLDER + 'fulldataset_fullypreprocessed.json.bz2'
 
 GLOVE_EMBEDDING_FOLDER = DATA_FOLDER +'glove/'
