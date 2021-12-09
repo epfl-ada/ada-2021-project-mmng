@@ -14,6 +14,7 @@ QUOTES_2016_PATH = QUOTEBANK_FOLDER + 'quotes-2016.json.bz2'
 QUOTES_2015_PATH = QUOTEBANK_FOLDER + 'quotes-2015.json.bz2'
 
 
+
 WIKIDATA_FOLDER = DATA_FOLDER + 'wikidata/'
 
 SPEAKER_ATTRIBUTES_PATH = WIKIDATA_FOLDER + 'speaker_attributes.parquet/'
@@ -32,6 +33,9 @@ DATA_MINI_FOLDER = 'data_mini/'
 DATA_FOLDER = 'data.nosync/' #DATA_MINI_FOLDER
 
 PREPROCESSED_FOLDER = DATA_FOLDER + 'processed/'
+
+QUOTES_ALL_TIME_PROCESSED = PREPROCESSED_FOLDER + 'fulldataset_fullypreprocessed.json.bz2'
+
 GLOVE_EMBEDDING_FOLDER = DATA_FOLDER +'glove/'
 GLOVE_EMBEDDING_TWITTER = DATA_FOLDER + 'glove_twitter/'
 

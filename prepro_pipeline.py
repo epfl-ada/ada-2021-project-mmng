@@ -16,19 +16,19 @@ import sys
 # Tweakable setting to control our pipeline
 
 # Input files
-raw_data_filepaths = [QUOTES_2020_PATH]
-# raw_data_filepaths = [
-#     QUOTES_2015_PATH,
-#     QUOTES_2016_PATH,
-#     QUOTES_2017_PATH,
-#     QUOTES_2018_PATH,
-#     QUOTES_2019_PATH,
-#     QUOTES_2020_PATH
-#     ]
+# raw_data_filepaths = [QUOTES_2020_PATH]
+raw_data_filepaths = [
+    QUOTES_2015_PATH,
+    QUOTES_2016_PATH,
+    QUOTES_2017_PATH,
+    QUOTES_2018_PATH,
+    QUOTES_2019_PATH,
+    QUOTES_2020_PATH
+    ]
 
 
 # Output files
-cleaned_labeled_filepath = PREPROCESSED_FOLDER + 'bert_preprocessing_keep_lower_case.json.bz2'
+cleaned_labeled_filepath = PREPROCESSED_FOLDER + 'fulldataset_fullypreprocessed.json.bz2'
 # cleaned_labeled_filepath = QUOTES_PARTY_LABELED_CLEANED_PATH
 
 #-----------------------------------------------------------------------------
@@ -45,11 +45,11 @@ CLEAN_SPEAKER = True    # clean speaker name (by applying str.lower())
 
 def clean(series):
     series = hp.fillna(series)
-    #series = hp.lowercase(series)
+    series = hp.lowercase(series)
     series = hp.remove_digits(series)
-    #series = hp.remove_punctuation(series)
+    series = hp.remove_punctuation(series)
     series = hp.remove_diacritics(series)
-    #series = hp.remove_stopwords(series)
+    series = hp.remove_stopwords(series)
     series = hp.remove_whitespace(series)
     return series
 

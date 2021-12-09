@@ -19,7 +19,7 @@ def load_glove_model(File,dimensions):
     print("Loading Glove Model")
     glove_model = {}
     line_nb = 0
-    with open(File,'r') as f:
+    with open(File,'r', encoding='utf-8') as f:
         for line in f:
             split_line = line.split()
             word = ' '.join(split_line[:len(split_line)-dimensions])
@@ -29,16 +29,16 @@ def load_glove_model(File,dimensions):
     print(f"{len(glove_model)} words loaded!")
     return glove_model
 
-def embed_quote(sentence,dimensions):
+def embed_quote(sentence,dimensions,vocabulary):
     def assign_vect(word):
         if 'covid' in word:
-            return np.expand_dims(glve['virus'],axis = 0)
+            return np.expand_dims(vocabulary['virus'],axis = 0)
         elif 'trump' in word:
-            return np.expand_dims(glve['trump'], axis = 0)
-        elif word not in glve.keys():
+            return np.expand_dims(vocabulary['trump'], axis = 0)
+        elif word not in vocabulary.keys():
             return np.expand_dims(np.zeros(dimensions),axis = 0)
         else:
-            return np.expand_dims(glve[word],axis = 0)
+            return np.expand_dims(vocabulary[word],axis = 0)
     words = sentence.split()
     arr = np.concatenate(list(map(lambda word: assign_vect(word),words)),axis =  0)
     return arr
@@ -64,7 +64,7 @@ if __name__ == "__main__":
                     df = df[df['quotation_length'] <=  max_sentence_length]
                     df = df[df['quotation_length'] > 0]
 
-                    df['glove_embedding'] = df['quotation'].apply(lambda x: embed_quote(x,dimensions))
+                    df['glove_embedding'] = df['quotation'].apply(lambda x: embed_quote(x,dimensions, glve))
                     df['party_number'] = df['party_label'].apply(lambda x: 1 if x == 'R' else 0)
 
                     df[['quotation','speaker','party_number','glove_embedding']].to_json(d_file, orient='records', lines=True)
