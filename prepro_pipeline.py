@@ -29,7 +29,7 @@ raw_data_filepaths = [
 
 # Output files
 # cleaned_labeled_filepath = QUOTES_2020_LABELED
-cleaned_labeled_filepath = QUOTES_LABELED_CLEANED
+cleaned_labeled_filepath = QUOTES_LABELED
 
 #-----------------------------------------------------------------------------
 # Pipeline control
