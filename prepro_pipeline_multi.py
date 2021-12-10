@@ -1,4 +1,6 @@
 
+import sys
+
 import bz2
 import json
 
@@ -9,7 +11,7 @@ import texthero.preprocessing as hp
 from helpers import *
 from prepro_party_labeling import *
 
-import sys
+from nltk.stem import WordNetLemmatizer
 
 #=============================================================================
 # RUN PARAMETERS
@@ -94,6 +96,9 @@ def cleanD(series):
     series = hp.stem(series)
     return series
 
+
+lemmatizer = WordNetLemmatizer()
+
 def cleanE(series):
     # TODO add lemmatization
     pass
@@ -162,6 +167,6 @@ with bz2.open(cleaned_labeled_filepath, 'wb') as d_file:
                 # if i >= 10: # Uncomment to not run on full file
                 #     break
 
-                break
+                # break
 
         print('\n------------------------------------------------------------------')

@@ -42,6 +42,7 @@ QUOTES_LABELED_CLEANED_PATH = PREPROCESSED_FOLDER + 'quotes_labeled_cleaned.json
 
 # File containing 5 different variants of preprocessing. (To be used to find best level of preprosessing on 2020 quotes)
 QUOTES_2020_LABELED_CLEANED_VARIANTS = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants.json.bz2'
+QUOTES_2020_LABELED_CLEANED_VARIANTS_MINI = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants_mini.json.bz2'
 
 #-----------------------------------------------------------------------------
 
