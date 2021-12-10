@@ -8,6 +8,9 @@ conda activate ada
 conda install jupyterlab bokeh seaborn nb_conda_kernels
 
 pip install texthero sklearn pyarrow
+
+# XGBoost
+conda install -c conda-forge xgboost
 ```
 
 Cleaning options:
