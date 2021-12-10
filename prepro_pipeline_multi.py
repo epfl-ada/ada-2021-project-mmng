@@ -12,6 +12,7 @@ from helpers import *
 from prepro_party_labeling import *
 
 from nltk.stem import WordNetLemmatizer
+from nltk import word_tokenize
 
 #=============================================================================
 # RUN PARAMETERS
@@ -30,7 +31,8 @@ raw_data_filepaths = [QUOTES_2020_PATH]
 
 
 # Output files
-cleaned_labeled_filepath = QUOTES_2020_LABELED_CLEANED_VARIANTS
+# cleaned_labeled_filepath = QUOTES_2020_LABELED_CLEANED_VARIANTS
+cleaned_labeled_filepath = QUOTES_2020_LABELED_CLEANED_VARIANTS_MINI
 
 #-----------------------------------------------------------------------------
 # Pipeline control
@@ -100,15 +102,24 @@ def cleanD(series):
 lemmatizer = WordNetLemmatizer()
 
 def cleanE(series):
-    # TODO add lemmatization
-    pass
+    series = hp.fillna(series)
+    series = hp.lowercase(series)
+    series = hp.remove_digits(series)
+    series = hp.remove_punctuation(series)
+    series = hp.remove_diacritics(series)
+    series = hp.remove_stopwords(series)
+    series = hp.remove_whitespace(series)
+
+    series = series.map(lambda quote: ' '.join(list(map(lambda x:lemmatizer.lemmatize(x), word_tokenize(quote)))))
+
+    return series
 
 cleaning_functions = [
     cleanA,
     cleanB,
     cleanC,
     cleanD,
-    # cleanE,
+    cleanE,
 ]
 
 #=============================================================================
