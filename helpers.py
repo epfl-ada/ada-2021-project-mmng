@@ -37,11 +37,12 @@ PREPROCESSED_FOLDER = DATA_FOLDER + 'processed/'
 #-----------------------------------------------------------------------------
 # New file sets
 
-QUOTES_LABELED_PATH = PREPROCESSED_FOLDER + 'quotes_labeled.json.bz2'
-QUOTES_2020_LABELED_PATH = PREPROCESSED_FOLDER + 'quotes-2020_labeled.json.bz2'
+QUOTES_LABELED = PREPROCESSED_FOLDER + 'quotes_labeled.json.bz2'
+QUOTES_2020_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_labeled.json.bz2'
 
 # File for final version of labeled and cleaned data WIP
-QUOTES_LABELED_CLEANED_PATH = PREPROCESSED_FOLDER + 'quotes_labeled_cleaned.json.bz2'
+QUOTES_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes_labeled_cleaned.json.bz2'
+QUOTES_2020_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_labeled_cleaned.json.bz2'
 
 # File containing 5 different variants of preprocessing. (To be used to find best level of preprosessing on 2020 quotes)
 QUOTES_2020_LABELED_CLEANED_VARIANTS = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants.json.bz2'

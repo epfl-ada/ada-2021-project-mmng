@@ -28,7 +28,8 @@ raw_data_filepaths = [
 
 
 # Output files
-cleaned_labeled_filepath = QUOTES_LABELED_CLEANED_PATH
+# cleaned_labeled_filepath = QUOTES_2020_LABELED
+cleaned_labeled_filepath = QUOTES_LABELED_CLEANED
 
 #-----------------------------------------------------------------------------
 # Pipeline control
@@ -36,7 +37,7 @@ cleaned_labeled_filepath = QUOTES_LABELED_CLEANED_PATH
 QUOTES_DROP_COLS = ['phase', 'urls', 'probas']
 
 LABEL_PARTY = True      # labeling by merging with wikidata dump
-CLEAN_QUOTES = True     # clean quotes using clean function below
+CLEAN_QUOTES = False     # clean quotes using clean function below
 CLEAN_SPEAKER = True    # clean speaker name (by applying str.lower())
 
 #=============================================================================
