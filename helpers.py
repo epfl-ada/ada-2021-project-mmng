@@ -37,6 +37,9 @@ PREPROCESSED_FOLDER = DATA_FOLDER + 'processed/'
 #-----------------------------------------------------------------------------
 # New file sets
 
+QUOTES_LABELED_PATH = PREPROCESSED_FOLDER + 'quotes_labeled.json.bz2'
+QUOTES_2020_LABELED_PATH = PREPROCESSED_FOLDER + 'quotes-2020_labeled.json.bz2'
+
 # File for final version of labeled and cleaned data WIP
 QUOTES_LABELED_CLEANED_PATH = PREPROCESSED_FOLDER + 'quotes_labeled_cleaned.json.bz2'
 

@@ -59,7 +59,7 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
         else:
             return None
 
-    def onlyPolitician(occupation):
+    def only_politician(occupation):
         POLITICIAN = 'Q82955'
         result = False
         if occupation is not None:
@@ -75,7 +75,7 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
         df_has_party['party_label'] = df_has_party['party'].map(label_party_usa)
 
         # Drop non politician quotes
-        df_has_party = df_has_party[df_has_party.apply(lambda x: onlyPolitician(x.occupation), axis=1)]
+        df_has_party = df_has_party[df_has_party.apply(lambda x: only_politician(x.occupation), axis=1)]
 
         # Drop any person that didn't get attributed a party_label
         df_has_party.dropna(subset=['party_label'], inplace=True)

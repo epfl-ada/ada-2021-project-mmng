@@ -7,7 +7,7 @@ conda activate ada
 
 conda install jupyterlab bokeh seaborn nb_conda_kernels
 
-pip install texthero sklearn
+pip install texthero sklearn pyarrow
 ```
 
 Cleaning options:
