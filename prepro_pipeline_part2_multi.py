@@ -19,7 +19,8 @@ from nltk import word_tokenize
 # Tweakable setting to control our pipeline
 
 # Input files
-raw_data_filepaths = [QUOTES_2020_PATH]
+input_filepaths = [QUOTES_2020_LABELED]
+# input_filepaths = [QUOTES_LABELED]
 # raw_data_filepaths = [
 #     QUOTES_2015_PATH,
 #     QUOTES_2016_PATH,
@@ -31,17 +32,15 @@ raw_data_filepaths = [QUOTES_2020_PATH]
 
 
 # Output files
-# cleaned_labeled_filepath = QUOTES_2020_LABELED_CLEANED_VARIANTS
-cleaned_labeled_filepath = QUOTES_2020_LABELED_CLEANED_VARIANTS_MINI
+output_filepath = QUOTES_2020_LABELED_CLEANED_VARIANTS
 
 #-----------------------------------------------------------------------------
 # Pipeline control
 
-QUOTES_DROP_COLS = ['phase', 'urls', 'probas']
+QUOTES_DROP_COLS = []
+# QUOTES_DROP_COLS = ['phase', 'urls', 'probas']
 
-LABEL_PARTY = True      # labeling by merging with wikidata dump
 CLEAN_QUOTES = True     # clean quotes using clean function below
-CLEAN_SPEAKER = True    # clean speaker name (by applying str.lower())
 
 #=============================================================================
 # Preprocessing functions
@@ -128,45 +127,30 @@ cleaning_functions = [
 print('==================================================================')
 print(' Starting data preprocessing')
 
-print('------------------------------------------------------------------')
-print(' Loading and preparing wikidata dump (10s-60s)')
-df_sa = load_wikidata()
-df_sa_labeled = speaker_attribute_processing(df_sa)
-print('DONE')
-print()
-
 print('==================================================================')
 print(' Starting file preprocessing')
-print(' \tWriting outputs to: ' + cleaned_labeled_filepath)
+print(' \tWriting outputs to: ' + output_filepath)
 
 # Open output file
-with bz2.open(cleaned_labeled_filepath, 'wb') as d_file:
-    for raw_data_filepath in raw_data_filepaths:
+with bz2.open(output_filepath, 'wb') as d_file:
+    for input_filepath in input_filepaths:
         print('------------------------------------------------------------------')
-        print('Processing file: ' + raw_data_filepath)
+        print('Processing file: ' + input_filepath)
 
         i=0
         print('Chunks done: ',end='')
 
         # Batched file processing
-        with pd.read_json(raw_data_filepath, lines=True, compression='bz2', chunksize=100000) as df_reader:
+        with pd.read_json(input_filepath, lines=True, compression='bz2', chunksize=100000) as df_reader:
             for df_quotes_chunk in df_reader:
 
-                # TODO make this configurable too
+                # Drop specified columns
                 df = df_quotes_chunk.drop(QUOTES_DROP_COLS, axis=1)
-
-                # Merge quotes to speakers to get party labels
-                if LABEL_PARTY:
-                    df = merge_quotes_to_speakers(df, df_sa_labeled)
 
                 # Cleaning quotations
                 if CLEAN_QUOTES:
                     for clean_func in cleaning_functions:
                        df[f'quotation_{clean_func.__name__}'] = clean_func(df['quotation'])
-
-                # Cleaning speaker name
-                if CLEAN_SPEAKER:
-                    df['speaker'] = df['speaker'].apply(lambda x: x.lower())
 
                 # write to output
                 df.to_json(d_file, orient='records', lines=True)

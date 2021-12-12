@@ -16,8 +16,8 @@ import sys
 # Tweakable setting to control our pipeline
 
 # Input files
-# raw_data_filepaths = [QUOTES_2020_PATH]
-raw_data_filepaths = [
+# input_files = [QUOTES_2020_PATH]
+input_files = [
     QUOTES_2015_PATH,
     QUOTES_2016_PATH,
     QUOTES_2017_PATH,
@@ -28,8 +28,8 @@ raw_data_filepaths = [
 
 
 # Output files
-# cleaned_labeled_filepath = QUOTES_2020_LABELED
-cleaned_labeled_filepath = QUOTES_LABELED
+# output_file = QUOTES_2020_LABELED
+output_file = QUOTES_LABELED
 
 #-----------------------------------------------------------------------------
 # Pipeline control
@@ -69,22 +69,22 @@ print()
 
 print('==================================================================')
 print(' Starting file preprocessing')
-print(' \tWriting outputs to: ' + cleaned_labeled_filepath)
+print(' \tWriting outputs to: ' + output_file)
 
 # Open output file
-with bz2.open(cleaned_labeled_filepath, 'wb') as d_file:
-    for raw_data_filepath in raw_data_filepaths:
+with bz2.open(output_file, 'wb') as d_file:
+    for input_file in input_files:
         print('------------------------------------------------------------------')
-        print('Processing file: ' + raw_data_filepath)
+        print('Processing file: ' + input_file)
 
         i=0
         print('Chunks done: ',end='')
 
         # Batched file processing
-        with pd.read_json(raw_data_filepath, lines=True, compression='bz2', chunksize=100000) as df_reader:
+        with pd.read_json(input_file, lines=True, compression='bz2', chunksize=100000) as df_reader:
             for df_quotes_chunk in df_reader:
 
-                # TODO make this configurable too
+                # Drop specified columns
                 df = df_quotes_chunk.drop(QUOTES_DROP_COLS, axis=1)
 
                 # Merge quotes to speakers to get party labels

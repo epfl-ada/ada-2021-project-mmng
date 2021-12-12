@@ -14,7 +14,6 @@ QUOTES_2016_PATH = QUOTEBANK_FOLDER + 'quotes-2016.json.bz2'
 QUOTES_2015_PATH = QUOTEBANK_FOLDER + 'quotes-2015.json.bz2'
 
 
-
 WIKIDATA_FOLDER = DATA_FOLDER + 'wikidata/'
 
 SPEAKER_ATTRIBUTES_PATH = WIKIDATA_FOLDER + 'speaker_attributes.parquet/'
@@ -42,11 +41,11 @@ QUOTES_2020_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_labeled.json.bz2'
 
 # File for final version of labeled and cleaned data WIP
 QUOTES_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes_labeled_cleaned.json.bz2'
-QUOTES_2020_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_labeled_cleaned.json.bz2'
+QUOTES_2020_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes-2020_labeled_cleaned.json.bz2'
 
 # File containing 5 different variants of preprocessing. (To be used to find best level of preprosessing on 2020 quotes)
 QUOTES_2020_LABELED_CLEANED_VARIANTS = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants.json.bz2'
-QUOTES_2020_LABELED_CLEANED_VARIANTS_MINI = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants_mini.json.bz2'
+# QUOTES_2020_LABELED_CLEANED_VARIANTS_MINI = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants_mini.json.bz2'
 
 #-----------------------------------------------------------------------------
 
@@ -85,6 +84,15 @@ QUOTES_2020_PARTY_LABELED_WITH_STOP_WORDS = PREPROCESSED_FOLDER +  'keep_stop_wo
 QUOTES_2020_EMBEDDED_TWITTER = PREPROCESSED_FOLDER + 'glove_encoded_df.json.bz2'
 
 QUOTES_2020_FOR_BERT = PREPROCESSED_FOLDER + 'bert_preprocessing_keep_lower_case.json.bz2'
+#=============================================================================
+# Trained Models
+
+MODEL_FOLDER = 'models/'
+
+MODEL_MULTINOMIALNB = MODEL_FOLDER + 'model_multinomialnb.pkl'
+MODEL_2020_MULTINOMIALNB = 'model_2020_multinomialnb.pkl'
+
+
 #=============================================================================
 
 # Fixing paths for different os's

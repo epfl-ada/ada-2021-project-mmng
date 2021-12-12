@@ -13,5 +13,5 @@ pip install texthero sklearn pyarrow
 conda install -c conda-forge xgboost
 ```
 
-Cleaning options:
-- 1
+TODO
+- Perform same pipeline that was succesful using uncleaned data (try adding cleaning into pipeline)
