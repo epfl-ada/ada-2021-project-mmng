@@ -1,4 +1,7 @@
 
+import os
+import pandas as pd
+
 #=============================================================================
 # Raw/given data files
 
@@ -25,6 +28,12 @@ SPEAKER_ATTRIBUTES_PATH = WIKIDATA_FOLDER + 'speaker_attributes.parquet/'
 DATA_MINI_FOLDER = 'data_mini/'
 # QUOTES_2020_PARTY_LABELED_MINI_PATH = DATA_MINI_FOLDER + 'quotes-2020-party_labeled_mini.json'
 # QUOTES_2020_PARTY_LABELED_SMALL_PATH = DATA_MINI_FOLDER + 'quotes-2020-party_labeled_small.json.bz2'
+
+#=============================================================================
+# Temporary files
+
+TEMP_FOLDER = 'temp/'
+TEMP_FILE = TEMP_FOLDER + 'temp.json.bz2'
 
 #=============================================================================
 # Preprocessed files
@@ -84,6 +93,7 @@ QUOTES_2020_PARTY_LABELED_WITH_STOP_WORDS = PREPROCESSED_FOLDER +  'keep_stop_wo
 QUOTES_2020_EMBEDDED_TWITTER = PREPROCESSED_FOLDER + 'glove_encoded_df.json.bz2'
 
 QUOTES_2020_FOR_BERT = PREPROCESSED_FOLDER + 'bert_preprocessing_keep_lower_case.json.bz2'
+
 #=============================================================================
 # Trained Models
 
@@ -92,13 +102,46 @@ MODEL_FOLDER = 'models/'
 MODEL_MULTINOMIALNB = MODEL_FOLDER + 'model_multinomialnb.pkl'
 MODEL_2020_MULTINOMIALNB = 'model_2020_multinomialnb.pkl'
 
-
 #=============================================================================
 
 # Fixing paths for different os's
-import os
 def fixpath(path):
     return os.path.abspath(os.path.expanduser(path))
 
 
 #=============================================================================
+
+def downsample(df:pd.DataFrame, label_col_name:str, force_sample_n=None) -> pd.DataFrame:
+    # find the number of observations in the smallest group
+
+    if force_sample_n != None:
+        nmin = force_sample_n
+    else:
+        nmin = df[label_col_name].value_counts().min()
+    return (df
+            # split the dataframe per group
+            .groupby(label_col_name)
+            # sample nmin observations from each group
+            .apply(lambda x: x.sample(nmin))
+            # recombine the dataframes
+            .reset_index(drop=True)
+            )
+
+
+def aggregate_cross_validate_results(res):
+    return {item: (value.mean(), value.std()) for (item, value) in res.items()}
+
+
+def print_cross_validate_results(res):
+    # scoring=['accuracy', 'precision', 'recall', 'f1']
+    # res = cross_validate(pipeline, X, y, scoring=scoring, cv=3)
+    res = aggregate_cross_validate_results(res)
+
+    # Code isn't pretty but prints nice output!
+    # print(f'Col: {col}')
+
+    # print(f'X shape: {X.shape}')
+
+    for (key, value) in res.items():
+        print(f'\t{key:20} - \tavg: {value[0]:.3f}\tstd: {value[1]:.3f}')
+
