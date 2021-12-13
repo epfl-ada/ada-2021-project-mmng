@@ -1,6 +1,7 @@
 
 import os
 import pandas as pd
+import pickle
 
 #=============================================================================
 # Raw/given data files
@@ -107,16 +108,29 @@ QUOTES_2020_FOR_BERT = PREPROCESSED_FOLDER + 'bert_preprocessing_keep_lower_case
 #=============================================================================
 # Trained Models
 
-MODEL_FOLDER = 'models/'
+MODELS_FOLDER = DATA_FOLDER + 'models/'
 
-MODEL_MULTINOMIALNB = MODEL_FOLDER + 'model_multinomialnb.pkl'
-MODEL_2020_MULTINOMIALNB = 'model_2020_multinomialnb.pkl'
+VECTORIZER_NGRAM13 = MODELS_FOLDER + 'vectorizer_tfidf_ngram=(1,3).pkl'
+MODEL_MULTINOMIALNB_NGRAM13 = MODELS_FOLDER + 'model_multinomialnb_tfidf_ngram=(1,3).pkl'
 
 #=============================================================================
 
 # Fixing paths for different os's
 def fixpath(path):
     return os.path.abspath(os.path.expanduser(path))
+
+
+#=============================================================================
+# Model loading
+
+def load_model(path):
+    with open(path, 'rb') as file:
+        return pickle.load(file)
+
+
+def save_model(model, path):
+    with open(path, 'wb') as file:
+        pickle.dump(model, file)
 
 
 #=============================================================================
@@ -154,4 +168,3 @@ def print_cross_validate_results(res):
 
     for (key, value) in res.items():
         print(f'\t{key:20} - \tavg: {value[0]:.3f}\tstd: {value[1]:.3f}')
-
