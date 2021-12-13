@@ -16,6 +16,16 @@ QUOTES_2017_PATH = QUOTEBANK_FOLDER + 'quotes-2017.json.bz2'
 QUOTES_2016_PATH = QUOTEBANK_FOLDER + 'quotes-2016.json.bz2'
 QUOTES_2015_PATH = QUOTEBANK_FOLDER + 'quotes-2015.json.bz2'
 
+QUOTEBANK_PATHS = [
+    QUOTES_2015_PATH,
+    QUOTES_2016_PATH,
+    QUOTES_2017_PATH,
+    QUOTES_2018_PATH,
+    QUOTES_2019_PATH,
+    QUOTES_2020_PATH
+    ]
+
+#-----------------------------------------------------------------------------
 
 WIKIDATA_FOLDER = DATA_FOLDER + 'wikidata/'
 
