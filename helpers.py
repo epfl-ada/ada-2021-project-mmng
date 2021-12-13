@@ -1,6 +1,7 @@
 
 import os
 import pandas as pd
+import pickle
 
 #=============================================================================
 # Raw/given data files
@@ -16,6 +17,16 @@ QUOTES_2017_PATH = QUOTEBANK_FOLDER + 'quotes-2017.json.bz2'
 QUOTES_2016_PATH = QUOTEBANK_FOLDER + 'quotes-2016.json.bz2'
 QUOTES_2015_PATH = QUOTEBANK_FOLDER + 'quotes-2015.json.bz2'
 
+QUOTEBANK_PATHS = [
+    QUOTES_2015_PATH,
+    QUOTES_2016_PATH,
+    QUOTES_2017_PATH,
+    QUOTES_2018_PATH,
+    QUOTES_2019_PATH,
+    QUOTES_2020_PATH
+    ]
+
+#-----------------------------------------------------------------------------
 
 WIKIDATA_FOLDER = DATA_FOLDER + 'wikidata/'
 
@@ -95,18 +106,33 @@ QUOTES_2020_EMBEDDED_TWITTER = PREPROCESSED_FOLDER + 'glove_encoded_df.json.bz2'
 QUOTES_2020_FOR_BERT = PREPROCESSED_FOLDER + 'bert_preprocessing_keep_lower_case.json.bz2'
 
 #=============================================================================
-# Trained Models
+# Trained Models, Vectorizers and Vectorized Quotes
 
-MODEL_FOLDER = 'models/'
+MODELS_FOLDER = DATA_FOLDER + 'models/'
 
-MODEL_MULTINOMIALNB = MODEL_FOLDER + 'model_multinomialnb.pkl'
-MODEL_2020_MULTINOMIALNB = 'model_2020_multinomialnb.pkl'
+VECTORIZER_NGRAM13 = MODELS_FOLDER + 'vectorizer_tfidf_ngram=(1,3).pkl'
+MODEL_MULTINOMIALNB_NGRAM13 = MODELS_FOLDER + 'model_multinomialnb_tfidf_ngram=(1,3).pkl'
 
 #=============================================================================
 
 # Fixing paths for different os's
 def fixpath(path):
     return os.path.abspath(os.path.expanduser(path))
+
+
+#=============================================================================
+# Model loading
+
+def load_pickle(path):
+    """Load a pickle file. Returns the loaded model/object"""
+    with open(path, 'rb') as file:
+        return pickle.load(file)
+
+
+def save_pickle(model, path):
+    """Save a model/object into a pickle file"""
+    with open(path, 'wb') as file:
+        pickle.dump(model, file)
 
 
 #=============================================================================
@@ -144,4 +170,3 @@ def print_cross_validate_results(res):
 
     for (key, value) in res.items():
         print(f'\t{key:20} - \tavg: {value[0]:.3f}\tstd: {value[1]:.3f}')
-
