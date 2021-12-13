@@ -106,7 +106,7 @@ QUOTES_2020_EMBEDDED_TWITTER = PREPROCESSED_FOLDER + 'glove_encoded_df.json.bz2'
 QUOTES_2020_FOR_BERT = PREPROCESSED_FOLDER + 'bert_preprocessing_keep_lower_case.json.bz2'
 
 #=============================================================================
-# Trained Models
+# Trained Models, Vectorizers and Vectorized Quotes
 
 MODELS_FOLDER = DATA_FOLDER + 'models/'
 
@@ -123,12 +123,14 @@ def fixpath(path):
 #=============================================================================
 # Model loading
 
-def load_model(path):
+def load_pickle(path):
+    """Load a pickle file. Returns the loaded model/object"""
     with open(path, 'rb') as file:
         return pickle.load(file)
 
 
-def save_model(model, path):
+def save_pickle(model, path):
+    """Save a model/object into a pickle file"""
     with open(path, 'wb') as file:
         pickle.dump(model, file)
 
