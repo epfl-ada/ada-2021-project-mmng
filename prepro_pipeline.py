@@ -116,9 +116,9 @@ cleaning_functions = [
 #=============================================================================
 # Preprocessing Pipeline!
 
-def _run_pipeline(input_paths:list(str), output_path:list(str), label_party:bool,
+def _run_pipeline(input_paths:list, output_path:str, label_party:bool,
     clean_speaker:bool, clean_quotes:bool, cleaning_mode:int='simple',
-    drop_cols:list(str)=[], chunks:int=-1, chunksize:int=100_000):
+    drop_cols:list=[], chunks:int=-1, chunksize:int=100_000):
     """
     input_paths   : Input file(s) to read. Can be a single filepath or a list
                     of filepaths. If a list is provided will read them
@@ -129,6 +129,10 @@ def _run_pipeline(input_paths:list(str), output_path:list(str), label_party:bool
     clean_quotes  : Controls if quotes should be cleaned
     cleaning_mode : 'simple' apply clean.
                     'multi' apply all cleaning functions
+    drop_cols     : List of columns to drop
+    chunks        : Number of chunks to execute before stopping. (Default)
+                    -1 to run until end of file.
+    chunksize     : chunksize
     """
 
     if type(input_paths) == str:
@@ -193,21 +197,19 @@ def _run_pipeline(input_paths:list(str), output_path:list(str), label_party:bool
             print('\n------------------------------------------------------------------')
 
 
-def run_party_labeling(input_paths, output_path, drop_cols:list(str)=['phase', 'urls', 'probas'], chunks:int=-1, chunksize:int=100_000):
+def run_party_labeling(input_paths, output_path, drop_cols=['phase', 'urls', 'probas'], chunks:int=-1, chunksize:int=100_000):
     print('==================================================================')
     print(' Starting party_labeling')
 
     _run_pipeline(input_paths, output_path, label_party=True, clean_speaker=True, clean_quotes=False, drop_cols=drop_cols, chunks=chunks, chunksize=chunksize)
-    print('==================================================================')
 
-def _run_cleaning(input_path, output_path, cleaning_mode, drop_cols:list(str)=[], chunks:int=-1, chunksize:int=100_000):
+def _run_cleaning(input_path, output_path, cleaning_mode, drop_cols=[], chunks:int=-1, chunksize:int=100_000):
     print('==================================================================')
     print(f' Starting cleaning. mode={cleaning_mode}')
     _run_pipeline(input_path, output_path, label_party=False, clean_speaker=False, clean_quotes=True, cleaning_mode=cleaning_mode, drop_cols=drop_cols, chunks=chunks, chunksize=chunksize)
-    print('==================================================================')
 
-def run_cleaning(input_path, output_path, drop_cols:list(str)=[], chunks:int=-1, chunksize:int=100_000):
+def run_cleaning(input_path, output_path, drop_cols=[], chunks:int=-1, chunksize:int=100_000):
     _run_cleaning(input_path, output_path, cleaning_mode='simple', drop_cols=drop_cols, chunks=chunks, chunksize=chunksize)
 
-def run_cleaning_multi(input_path, output_path, drop_cols:list(str)=[], chunks:int=-1, chunksize:int=100_000):
+def run_cleaning_multi(input_path, output_path, drop_cols=[], chunks:int=-1, chunksize:int=100_000):
     _run_cleaning(input_path, output_path, cleaning_mode='multi', drop_cols=drop_cols, chunks=chunks, chunksize=chunksize)
