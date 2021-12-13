@@ -59,9 +59,15 @@ PREPROCESSED_FOLDER = DATA_FOLDER + 'processed/'
 QUOTES_LABELED = PREPROCESSED_FOLDER + 'quotes_labeled.json.bz2'
 QUOTES_2020_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_labeled.json.bz2'
 
+QUOTES_RD_LABELED = PREPROCESSED_FOLDER + 'quotes_rd_labeled.json.bz2'
+QUOTES_2020_RD_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_rd_labeled.json.bz2'
+
 # File for final version of labeled and cleaned data WIP
 QUOTES_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes_labeled_cleaned.json.bz2'
 QUOTES_2020_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes-2020_labeled_cleaned.json.bz2'
+
+QUOTES_RD_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes_rd_labeled_cleaned.json.bz2'
+QUOTES_2020_RD_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes-2020_rd_labeled_cleaned.json.bz2'
 
 # File containing 5 different variants of preprocessing. (To be used to find best level of preprosessing on 2020 quotes)
 QUOTES_2020_LABELED_CLEANED_VARIANTS = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants.json.bz2'
@@ -152,6 +158,24 @@ def downsample(df:pd.DataFrame, label_col_name:str, force_sample_n=None) -> pd.D
             # recombine the dataframes
             .reset_index(drop=True)
             )
+
+
+def drop_short_quotes(df, threshold_quantile, quote_col_name='quotation_clean'):
+    """
+    Calculates the length of all given quotes and drops any quotes that are
+    shorter than the given threshold quantile/percentile.
+    """
+
+    lengths_of_df = df['quotation_cleanE'].apply(lambda x: len(x))
+    lengths_of_df.median()
+
+    # Droping quotes
+    df = df[lengths_of_df > lengths_of_df.quantile(threshold_quantile)]
+
+    # Code to drop both short and long quotes
+    # df = df[np.logical_and(lengths_of_df > lengths_of_df.quantile(0.3), lengths_of_df < lengths_of_df.quantile(0.9))]
+
+    return df
 
 
 def aggregate_cross_validate_results(res):
