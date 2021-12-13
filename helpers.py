@@ -166,7 +166,7 @@ def drop_short_quotes(df, threshold_quantile, quote_col_name='quotation_clean'):
     shorter than the given threshold quantile/percentile.
     """
 
-    lengths_of_df = df['quotation_cleanE'].apply(lambda x: len(x))
+    lengths_of_df = df[quote_col_name].apply(lambda x: len(x))
     lengths_of_df.median()
 
     # Droping quotes
