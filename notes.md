@@ -39,12 +39,36 @@ clf.predict(X)
 ```
 
 Saving example:
-```
+```python
 vectorizer = TfidfVectorizer(ngram_range=(1,3))
 X_vectorized = vectorizer.fit_transform(X)
 
 save_pickle(vectorizer, VECTORIZER_NGRAM13)
 ```
+
+---
+
+## Work plan
+
+- Can we predict the political inclinations based on their quotes. For a
+  politican and a non-polititian (an actor...). **Michael**
+- Can we see how strongly a politician's opignions are aligned with a party? **Gio**
+- Can we analyse the polarization of political parties for certain topics.
+  For example: debate on income tax or... **Nicky**
+- How does a person's politicial opinions fluctuate over time.
+  (Would be nice to plot some RD speakers). Maybe someone who changed party
+  in the timeframe we are working in! **Mauro**
+
+Tasks:
+Michael:
+- Finish notebook section on quote cleaning variants
+- Help gio with visualizations...
+- Data story
+  - Run prediction on a quotes by non-politicians and display results.
+    And look at politcians quotes and see if quotes in the middle are really apolitical.
+
+Mauro:
+
 
 ---
 
