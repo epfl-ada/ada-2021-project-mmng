@@ -54,14 +54,23 @@ DATA_FOLDER = 'data.nosync/' #DATA_MINI_FOLDER
 
 PREPROCESSED_FOLDER = DATA_FOLDER + 'processed/'
 
-#-----------------------------------------------------------------------------
+#=============================================================================
 # New file sets
+
+#-----------------------------------------------------------------------------
+# Just labeled data
 
 QUOTES_LABELED = PREPROCESSED_FOLDER + 'quotes_labeled.json.bz2'
 QUOTES_2020_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_labeled.json.bz2'
 
 QUOTES_RD_LABELED = PREPROCESSED_FOLDER + 'quotes_rd_labeled.json.bz2'
 QUOTES_2020_RD_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_rd_labeled.json.bz2'
+
+QUOTES_RD_OQ_LABELED = PREPROCESSED_FOLDER + 'quotes_rd_oq_labeled.json.bz2'
+QUOTES_2020_RD_OQ_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_rd_oq_labeled.json.bz2'
+
+#-----------------------------------------------------------------------------
+# Labeled and cleaned data
 
 # File for final version of labeled and cleaned data WIP
 QUOTES_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes_labeled_cleaned.json.bz2'
@@ -70,11 +79,19 @@ QUOTES_2020_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes-2020_labeled_cleaned
 QUOTES_RD_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes_rd_labeled_cleaned.json.bz2'
 QUOTES_2020_RD_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes-2020_rd_labeled_cleaned.json.bz2'
 
+QUOTES_RD_OQ_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes_rd_oq_labeled_cleaned.json.bz2'
+QUOTES_2020_RD_OQ_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes-2020_rd_oq_labeled_cleaned.json.bz2'
+
+#-----------------------------------------------------------------------------
+# Labeled and cleaned in 5 different ways
+
 # File containing 5 different variants of preprocessing. (To be used to find best level of preprosessing on 2020 quotes)
 QUOTES_2020_LABELED_CLEANED_VARIANTS = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants.json.bz2'
 # QUOTES_2020_LABELED_CLEANED_VARIANTS_MINI = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants_mini.json.bz2'
 
-#-----------------------------------------------------------------------------
+QUOTES_2020_RD_OQ_LABELED_CLEANED_VARIANTS = PREPROCESSED_FOLDER + 'quotes-2020_rd_oq_labeled_cleaned_variants.json.bz2'
+
+#=============================================================================
 
 QUOTES_ALL_TIME_PROCESSED = PREPROCESSED_FOLDER + 'fulldataset_fullypreprocessed.json.bz2'
 

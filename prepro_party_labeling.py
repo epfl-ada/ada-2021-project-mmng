@@ -16,7 +16,8 @@ def load_wikidata():
 
 
 def speaker_attribute_processing(df_sa, drop_non_congress=False,
-    keep_columns=['label', 'id', 'party_label', 'US_congress_bio_ID']):
+    keep_columns=['label', 'id', 'party_label', 'US_congress_bio_ID'],
+    label_RD=True):
     """
     Performs processing on speaker attribute file to extract informations
     that are useful to us.
@@ -51,8 +52,10 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
         # TODO Possible improvement have a more advanced rule for when a person
         # is affiliatied to both parties.
         if REPUBLICAN_QID in parties and DEMOCRAT_QID in parties:
-            return None
-            # return 'RD'
+            if label_RD:
+                return 'RD'
+            else:
+                return None
         elif REPUBLICAN_QID in parties:
             return 'R'
         elif DEMOCRAT_QID in parties:
@@ -97,23 +100,36 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
 
 def merge_quotes_to_speakers(df_quotes, df_sa_labeled):
 
-    def quotes_qid_cleanup(df_quotes):
+    def quotes_qid_cleanup(df_quotes, qid_strategy='pick_first'):
         """
         Internal function. Drops quotes which don't have a qid assigned
         to them and picks the best qid (if there are several, heuristically)
         to associate to that quote.
+
+        qid_strategy: (default) 'pick_first' or 'drop_if_many'
         """
 
         # Drop tables which don't have any qid (no speaker attributed)
-        df_has_qids = df_quotes[df_quotes['qids'].map(lambda x: len(x)) > 0].copy()
+        df_res = df_quotes[df_quotes['qids'].map(lambda x: len(x)) > 0].copy()
 
-        # Pick 1st qid in qid list
-        df_has_qids['top_qid'] = df_has_qids['qids'].map(lambda x: x[0])
+
+        if qid_strategy == 'pick_first':
+            # Pick 1st qid in qid list
+            df_res['top_qid'] = df_res['qids'].map(lambda x: x[0])
+
+        elif qid_strategy == 'drop_if_many':
+
+            # Drop any quotes that has multiple qid attributed to it
+            df_qid_lengths = df_res['qids'].map(lambda x: len(x))
+            df_res = df_res[df_qid_lengths == 1]
+
+        else:
+            raise ValueError(f'Passed bad qid_strategy: {qid_strategy}')
 
         # Drop qids since we only need top_qid from now.
-        df_has_qids.drop('qids', axis=1, inplace=True)
+        # df_res.drop('qids', axis=1, inplace=True)
 
-        return df_has_qids
+        return df_res
 
     def merge(df_quotes, df_sa_labeled):
         df_merged = df_quotes.merge(df_sa_labeled, left_on='top_qid', right_on='id')
