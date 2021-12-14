@@ -1,5 +1,6 @@
 
 import os
+import numpy as np
 import pandas as pd
 import pickle
 
@@ -142,6 +143,10 @@ def save_pickle(model, path):
 
 
 #=============================================================================
+
+def convert_labels(y_textual):
+    return np.array([-1 if label=='R' else 1 for label in y_textual])
+
 
 def downsample(df:pd.DataFrame, label_col_name:str, force_sample_n=None) -> pd.DataFrame:
     # find the number of observations in the smallest group

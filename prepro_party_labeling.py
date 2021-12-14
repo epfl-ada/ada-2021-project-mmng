@@ -52,6 +52,7 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
         # is affiliatied to both parties.
         if REPUBLICAN_QID in parties and DEMOCRAT_QID in parties:
             return None
+            # return 'RD'
         elif REPUBLICAN_QID in parties:
             return 'R'
         elif DEMOCRAT_QID in parties:
