@@ -138,7 +138,7 @@ def merge_quotes_to_speakers(df_quotes, df_sa_labeled):
             raise ValueError(f'Passed bad qid_strategy: {qid_strategy}')
 
         # Drop qids since we only need top_qid from now.
-        # df_res.drop('qids', axis=1, inplace=True)
+        df_res.drop('qids', axis=1, inplace=True)
 
         return df_res
 
