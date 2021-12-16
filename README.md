@@ -1,11 +1,12 @@
 # ADA Quotebank Project - American Data Analysis
-
-Mauro Leidi, Gioele Monopoli, Nicolas Baldwin, Michael Roust
+For a high level introduction to this project please check our website: https://ogimgio.github.io/ada-mmng-website/
+Project Members: Mauro Leidi, Gioele Monopoli, Nicolas Baldwin, Michael Roust
 
 # Abstract
-In this project Quotebank is used to analyze American politics in depth. First, it is necessary to label the quotes with their political inclination.
+In this project Quotebank is used to analyze American politics with a data oriented approach. First, we label the quotes with their corresponding political inclination either democrat or republican.
 Subsequently, a model is trained to predict the quote political inclination. Thanks to the value predicted by the model, it is possible to analyze how polarized the prediction is, and therefore discover how much the quote is representative of the political vision of the political party itself.
 Using this model, quotes of one politician can be summarized in a time series of political scores. These time series can be used in various ways to extract meaningful insights about American politics. We will study the trend of the political vision and we will be able to analyise the polarization of every politician. The goal is to allow users to make these customized and fast analysis. We will focus on the classification between Republicans and Democrats.
+
 ![](media/TimeSerie.PNG)
 # Research Questions
 The main questions we want to answer are:
@@ -13,7 +14,7 @@ The main questions we want to answer are:
 - How much is a politician vision polarized?
 - How similar is the vision of a politician to the vision of his party?
 - What differenciate the quotes of Republicans and Democrats?
-One of the advantages of our approach is that it is not specific to the questions posed above, therefore once the model is created it is easy to be able to answer other different questions as well. For example, we would be able to see which party members have more distant vision or which members of different parties have a higher negative correlation.
+One of the advantages of our approach is that it is not specific to the questions posed above, therefore once the model is created it is easy to be able to answer other different questions as well. For example, we would be able to see which party members have more distant vision or which members of different parties have a higher negative correlation. A limit of this approach is that the score is not meaning related in the sense that even two quotations have equal score they do not probably have similar meaning.
 # Workflow
 A summary of the workflow is presented in the following image:
 ![](media/workflow.PNG)
@@ -28,7 +29,7 @@ A summary of the workflow is presented in the following image:
    7) Remove all extra white spaces at the end of a quote
    8) Lemmatization
    9) Data expantion thanks to n-grams can be perfomed when the data is vectorized
-3) Vectorization of the data, for the moment we are representing data with the TF-IDF model. We encountered some RAM problems, but we found many solutions online thanks to algorithms that do not requirer the full dataset load in memory but works with chunks of data.
+3) Vectorization of the data, for the moment we are representing data with the TF-IDF model. We encountered some RAM problems, but we found many solutions online thanks to algorithms that do not requirer the full dataset load in memory but works with chunks of data. Note that one way to improve our project would be to implement word embedding (for example glove embedding).
 4) Model creation: We need to create a model for classification. We tried many different classification models including fine tuning an NLP pretrained models for our purpose and a Neural network, different classifiers and decided to use a multinomial naive baesian model (note that linear SVC performed ad good).
 5) Time series generation thanks to the model predictions.
 6) Study of results, interpretation of the model and Research question answering.
@@ -49,13 +50,14 @@ github/code organization| Michael
 pipelines organization  | Nicky & Michael
 
 # Strategy
-In order to deal with such a big dataset we are rewriting our datasets in pickle format. This allow for fast reading and writing. In addition, as suggested, when is necessary we always process data either line-by-line either in chunks. We encountered a RAM overload problem when tring to vectorize the data with tf-idf model, but managed to solve them thanks to algorithms that allows iterable as inputs, and do not load all data into memory.
+In order to deal with such a big dataset we are rewriting our datasets in pickle format. This allow for efficient reading/writing. In addition, as suggested, when is necessary we always process data either line-by-line either in chunks. We encountered a RAM overload problem when tring to vectorize the data with tf-idf model, but managed to solve them thanks to algorithms that allows iterable as inputs, and do not load all data into memory.
 To get a first idea of the difficulty of the task we faced, we have visualized the PCA of NB datapoints.
 ![](media/pca.png)
 As we can see the data does not appear linearly separable with such a simple method.
-
 # Additional remarks
-The first question we ask ourselves is whether it is worth trying to identify apolitical messages as a supplementary class. For example we thought that if a politician, Democrat or Republican, makes a statement about sport it should not be classified as politics by our model. In this direction, the statements of some groups of people (such as sportspeople) could be classified as apolitical. However, this task remains difficult to do cleanly (a politician might be politically engaged) and we'd love to have some advice on it. Another solution to reduce the impact of this problem would be to look inside the urls for a substring that represent a topic not related to politics. For example if we find the word "gossip" in the url the quotation will not probably be a political statement. We repete this operation on multiple misleading keywords. Is this a good idea?
+We will upload the pretrained models and the vectorizer on google drive in order to make them accessible to anyone. The data is huge and takes time to preprocess it completely. The preprocessed data will be on the drive as well with the correct name and location used in the paths of the helper module. Everything is in a data.nosync folder that need to be in the rootpath of the project.
+# Improvements/still to do 
+The first question we ask is whether it is worth trying to identify apolitical messages as a supplementary class. For example we thought that if a politician, Democrat or Republican, makes a statement about sport it should not be classified as politics by our model. In this direction, the statements of some groups of people (such as sportspeople) could be classified as apolitical. However, this task remains difficult to do cleanly (a politician might be politically engaged) and we are not sure how to implement it. 
 # Result analysis
 Please take a look at the website: https://ogimgio.github.io/ada-mmng-website/
 # Code organization
