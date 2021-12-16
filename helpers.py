@@ -161,6 +161,21 @@ def save_pickle(model, path):
 
 #=============================================================================
 
+influential_D = ['Hilary Clinton','Barack Obama','Bernie Sanders','Bill Clinton','Joe Biden','Kamala Harris','Nancy Pelosi','Jimmy Carter','Al Gore','Andrew Cuomo','Elizabeth Warren','Michael Bloomberg','Alexandria Ocasio-Cortez','Charles Schumer','John Kerry']
+id_inf_D = ['Q6294','Q76','Q359442','Q1124','Q6279','Q10853588','Q170581','Q23685','Q19673','Q11673','Q434706','Q607','Q55223040','Q380900','Q22316']
+
+# influential_D = list(zip(influential_D, id_inf_D))
+# del id_inf_D
+
+#source https://today.yougov.com/ratings/politics/fame/Republicans/all
+influential_R = ['George bush','Donald Trump','Arnold Schwarzenegger','Mike Pence','Ted Cruz','Sarah Palin','Mitch McConnel','Mitt Romney','Dick Cheney','Jeb Bush','Chris Christie','Rand Paul','Ben Carson','Henry Kissinger','Marco Rubio']
+id_inf_R = ['Q207','Q22686','Q2685','Q24313','Q2036942','Q43144','Q355522','Q4496','Q48259','Q221997','Q63879','Q463557','Q816459','Q66107','Q324546']
+
+# influential_R = list(zip(influential_R, id_inf_R))
+# del id_inf_R
+
+#=============================================================================
+
 def convert_labels(y_textual):
     return np.array([-1 if label=='R' else 1 for label in y_textual])
 

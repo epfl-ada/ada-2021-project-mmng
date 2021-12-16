@@ -17,7 +17,7 @@ def load_wikidata():
 
 def speaker_attribute_processing(df_sa, drop_non_congress=False,
     keep_columns=['label', 'id', 'party_label'],
-    label_RD=True):
+    label_RD=True, extra_manual_labeling=True):
     """
     Performs processing on speaker attribute file to extract informations
     that are useful to us.
@@ -35,6 +35,8 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
         speaker_attribute Data frame labeled by party
     """
 
+    df_sa = df_sa[['id', 'label', 'party', 'occupation']]
+
     # If desired drop people who weren't ever part of congress
     # (have no US_congress_bio_ID).
     if drop_non_congress:
@@ -48,10 +50,8 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
         REPUBLICAN_QID = 'Q29468'
         DEMOCRAT_QID = 'Q29552'
 
-
-        # TODO Possible improvement have a more advanced rule for when a person
-        # is affiliatied to both parties.
         if REPUBLICAN_QID in parties and DEMOCRAT_QID in parties:
+            # Customizable behaviour if part of 2 parties
             if label_RD:
                 return 'RD'
             else:
@@ -88,6 +88,10 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
 
     # Label people by party
     df_sa = sa_label_parties(df_sa)
+
+    if extra_manual_labeling:
+        manually_label_party(df_sa, id_inf_D, 'D')
+        manually_label_party(df_sa, id_inf_R, 'R')
 
     # Drop unecessary columns from the data
     if keep_columns != None:
@@ -145,6 +149,10 @@ def merge_quotes_to_speakers(df_quotes, df_sa_labeled):
 
 
 #=============================================================================
+
+
+def manually_label_party(df_sa, qids, party_label):
+    df_sa.loc[df_sa.id.map(lambda x: x in qids), 'party_label'] = party_label
 
 
 def select_best_qids_manual(df):
