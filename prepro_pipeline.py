@@ -16,33 +16,6 @@ from nltk.stem import WordNetLemmatizer
 from nltk import word_tokenize
 
 #=============================================================================
-# RUN PARAMETERS
-# Tweakable setting to control our pipeline
-
-# Input files
-# input_files = [QUOTES_2020_PATH]
-input_files = [
-    QUOTES_2015_PATH,
-    QUOTES_2016_PATH,
-    QUOTES_2017_PATH,
-    QUOTES_2018_PATH,
-    QUOTES_2019_PATH,
-    QUOTES_2020_PATH
-    ]
-
-
-# Output files
-# output_file = QUOTES_2020_LABELED
-# output_file = QUOTES_LABELED
-
-#-----------------------------------------------------------------------------
-# Pipeline control
-
-# LABEL_PARTY = True      # labeling by merging with wikidata dump
-# CLEAN_QUOTES = False     # clean quotes using clean function below
-# CLEAN_SPEAKER = True    # clean speaker name (by applying str.lower())
-
-#=============================================================================
 # Preprocessing functions
 
 def cleanA(series):
