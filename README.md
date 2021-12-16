@@ -1,52 +1,63 @@
-# ADA Quotebank Project - The AI Politologist
+# ADA Quotebank Project - American Data Analysis
 
-Mauro Leidi, Gioele Monopoli, Nicky Baldwin, Michael Roust
+Mauro Leidi, Gioele Monopoli, Nicolas Baldwin, Michael Roust
 
 # Abstract
-In this project Quotebank is used to analyze American politics in depth. It is necessary to label the quotes with their political inclination.
+In this project Quotebank is used to analyze American politics in depth. First, it is necessary to label the quotes with their political inclination.
 Subsequently, a model is trained to predict the quote political inclination. Thanks to the value predicted by the model, it is possible to analyze how polarized the prediction is, and therefore discover how much the quote is representative of the political vision of the political party itself.
-Using this model, quotes of one politician can be summarized in a time series of political scores. These time series can be used in various ways to extract meaningful insights about American politics. We will study the trend of the political position of a selected politician and how influential a politician is within his political group. The goal is to allow users to make these customized and fast analysis. We will focus on the classification between Republicans and Democrats.
+Using this model, quotes of one politician can be summarized in a time series of political scores. These time series can be used in various ways to extract meaningful insights about American politics. We will study the trend of the political vision and we will be able to analyise the polarization of every politician. The goal is to allow users to make these customized and fast analysis. We will focus on the classification between Republicans and Democrats.
 ![](media/TimeSerie.PNG)
 # Research Questions
 The main questions we want to answer are:
 - How does a politician's political vision evolve over time?
-- How much is a politician influenced by the statements of another politician?
-- How influential is a politician within a political group?
-One of the advantages of our approach is that it is not specific to the questions posed above, therefore once the model is created it is easy to be able to answer other different questions as well. For example, we would be able to see which party members have more distant positions or which members of different parties have a higher negative correlation.
-# Proposed timeline Organization within the team
-A summary of the workflow we have imagined is presented in the following image:
+- How much is a politician vision polarized?
+- How similar is the vision of a politician to the vision of his party?
+- What differenciate the quotes of Republicans and Democrats?
+One of the advantages of our approach is that it is not specific to the questions posed above, therefore once the model is created it is easy to be able to answer other different questions as well. For example, we would be able to see which party members have more distant vision or which members of different parties have a higher negative correlation.
+# Workflow
+A summary of the workflow is presented in the following image:
 ![](media/workflow.PNG)
-1) Merging Quotebank with wikidatas, keeping only the data where the occupation is related to politics.
-2) Preprocess data for the moment we are doing:
+1) Merging Quotebank with wikidatas, keeping only the data where the occupation is politician and where there are not any homonym on wikidata (because in Quotebank we have a little problem... the assignement of the quote is done with a name and not with a id, therefore we will not be able to distinguish quotation of Tim Cahill (politician) and Tim Cahill (american fotball player)).
+2) Preprocess data allows for combination of the following operations:
    1) Replace not assigned values with empty spaces
    2) Lowercase all text
    3) Remove all blocks of digits
    4) Remove all string.punctuation (!"#$%&'()*+,-./:;<=>?@[]^_`{|}~)
    5) Remove all accents from strings
    6) Remove all stop words
-   7) Remove all extra white spaces at the end of a quote.
+   7) Remove all extra white spaces at the end of a quote
+   8) Lemmatization
+   9) Data expantion thanks to n-grams can be perfomed when the data is vectorized
 3) Vectorization of the data, for the moment we are representing data with the TF-IDF model. We encountered some RAM problems, but we found many solutions online thanks to algorithms that do not requirer the full dataset load in memory but works with chunks of data.
-4) Model creation: We need to create a model for classification. We have in mind two main approaches: 1. Training a model from scratch with our data. 3. Using NLP pretrained models and fine tuning for our purpose (we still need to study if this is feasible).
-5) Graphic User Interface creation and presentation of results.
-6) Time series statistical analysis.
-The internal time schedule is presented in the following table:
+4) Model creation: We need to create a model for classification. We tried many different classification models including fine tuning an NLP pretrained models for our purpose and a Neural network, different classifiers and decided to use a multinomial naive baesian model (note that linear SVC performed ad good).
+5) Time series generation thanks to the model predictions.
+6) Study of results, interpretation of the model and Research question answering.
 
-Task                    | Date         |Responsable
-------------------------| -------------|-------------
-Merge Wikidata Quotebank| Done         |     /
-Preprocess text data    | Done         |     /
-text data Vectorization | Done         |     /
-Model creation          | by 03.12.2021| Nicky  & Mauro
-GUI + interactive setup | by 07.12.2021| Gioele with the help of Michael  & Mauro
-Time series analyisis   | by 11.12.2021| Nicky & Michael
+The work was split between the group in the following way (Everyone did a bit of everything this is just indicative of who was the responsable leader of that task (the boss)):
 
-# Additional stuff
+Task                    |Responsable
+------------------------|-------------
+Data Exploration        |    Mauro
+Merge Wikidata Quotebank|    Michael
+Preprocess text data    |    Nicky
+text data Vectorization |    Gioele
+Model exploratios       | Nicky  & Mauro
+Time series analyisis   | Gioele & Michael
+Data story redaction    | Nicky & Mauro
+Web-site creation       | Gioele & Mauro
+github/code organization| Michael
+pipelines organization  | Nicky & Michael
+
+# Strategy
 In order to deal with such a big dataset we are rewriting our datasets in pickle format. This allow for fast reading and writing. In addition, as suggested, when is necessary we always process data either line-by-line either in chunks. We encountered a RAM overload problem when tring to vectorize the data with tf-idf model, but managed to solve them thanks to algorithms that allows iterable as inputs, and do not load all data into memory.
-Everything we have done is absolutely not to be seen as a definitive choice, but rather as a first exploration to see what results we can try to achieve. In this case, keeping other data from the wikidata such as sex or other characteristics of the speaker could greatly improve our performances. To get a first idea of the difficulty of the task we faced, we have visualized the PCA of NB datapoints.
+To get a first idea of the difficulty of the task we faced, we have visualized the PCA of NB datapoints.
 ![](media/pca.png)
 As we can see the data does not appear linearly separable with such a simple method.
-# Questions for TAs
+
+# Additional remarks
 The first question we ask ourselves is whether it is worth trying to identify apolitical messages as a supplementary class. For example we thought that if a politician, Democrat or Republican, makes a statement about sport it should not be classified as politics by our model. In this direction, the statements of some groups of people (such as sportspeople) could be classified as apolitical. However, this task remains difficult to do cleanly (a politician might be politically engaged) and we'd love to have some advice on it. Another solution to reduce the impact of this problem would be to look inside the urls for a substring that represent a topic not related to politics. For example if we find the word "gossip" in the url the quotation will not probably be a political statement. We repete this operation on multiple misleading keywords. Is this a good idea?
+# Result analysis
+Please take a look at the website: https://ogimgio.github.io/ada-mmng-website/
 # Code organization
 
 ### Notebooks
