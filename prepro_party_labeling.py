@@ -16,7 +16,7 @@ def load_wikidata():
 
 
 def speaker_attribute_processing(df_sa, drop_non_congress=False,
-    keep_columns=['label', 'id', 'party_label', 'US_congress_bio_ID'],
+    keep_columns=['label', 'id', 'party_label'],
     label_RD=True):
     """
     Performs processing on speaker attribute file to extract informations
@@ -71,7 +71,7 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
                 result = True
         return result
 
-    def sa_label_parties(df_sa, labeler):
+    def sa_label_parties(df_sa):
         # Filter out anyone who doesn't have any party assigned to them
         df_has_party = df_sa[df_sa['party'].notna()].copy()
 
@@ -87,7 +87,7 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
         return df_has_party
 
     # Label people by party
-    df_sa = sa_label_parties(df_sa, label_party_usa)
+    df_sa = sa_label_parties(df_sa)
 
     # Drop unecessary columns from the data
     if keep_columns != None:
@@ -100,16 +100,16 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
 
 def merge_quotes_to_speakers(df_quotes, df_sa_labeled):
 
-    def quotes_qid_cleanup(df_quotes, qid_strategy='pick_first'):
+    def quotes_qid_cleanup(df_quotes, qid_strategy='heuristic'):
         """
         Internal function. Drops quotes which don't have a qid assigned
         to them and picks the best qid (if there are several, heuristically)
         to associate to that quote.
 
-        qid_strategy: (default) 'pick_first' or 'drop_if_many'
+        qid_strategy: (default) 'pick_first', 'manual' or 'heuristic'
         """
 
-        # Drop tables which don't have any qid (no speaker attributed)
+        # Drop quotes which don't have any qid (no speaker attributed)
         df_res = df_quotes[df_quotes['qids'].map(lambda x: len(x)) > 0].copy()
 
 
@@ -117,11 +117,14 @@ def merge_quotes_to_speakers(df_quotes, df_sa_labeled):
             # Pick 1st qid in qid list
             df_res['top_qid'] = df_res['qids'].map(lambda x: x[0])
 
-        elif qid_strategy == 'drop_if_many':
+        elif qid_strategy == 'manual':
+            # Drop any quotes that have multiple qids attributed
+            # Except for manually configured speakers
+            raise NotImplementedError()
+            select_best_qids_manual(df_res)
 
-            # Drop any quotes that has multiple qid attributed to it
-            df_qid_lengths = df_res['qids'].map(lambda x: len(x))
-            df_res = df_res[df_qid_lengths == 1]
+        elif qid_strategy == 'heuristic':
+            select_best_qids_heuristical_inplace(df_res)
 
         else:
             raise ValueError(f'Passed bad qid_strategy: {qid_strategy}')
@@ -142,3 +145,41 @@ def merge_quotes_to_speakers(df_quotes, df_sa_labeled):
 
 
 #=============================================================================
+
+
+def select_best_qids_manual(df):
+    df_res = df
+
+    # TODO add manual system
+
+    # Drop any quotes that has multiple qid attributed to it
+    df_qid_lengths = df_res['qids'].map(lambda x: len(x))
+    df_res = df_res[df_qid_lengths == 1]
+
+    df_res['top_qid'] = df_res['qids'].map(lambda x: x[0])
+
+
+
+
+def select_best_qids_heuristical_inplace(df):
+    def select_best_qid(qids:list):
+
+        # Directly return qid if only 1 qid
+        if len(qids) == 1:
+            return qids[0]
+
+        # We noticed that shorter qids usually imply greater popularity of
+        # an individual. Thus, we take the shortest qid.
+        # However, if the shortest and 2nd shortest qid are same length discard.
+        qids_n_lengths = list(map(lambda x: (x, len(x)), qids))
+        qids_n_lengths = sorted(qids_n_lengths, key=lambda x: x[1])
+
+        shortest_qid_n_length = qids_n_lengths[0]
+        second_shortest_qid_n_length = qids_n_lengths[1]
+        if shortest_qid_n_length[1] == second_shortest_qid_n_length[1]:
+            return None
+
+        return shortest_qid_n_length[0]
+
+    df['top_qid'] = df['qids'].map(select_best_qid)
+    df.dropna(subset=['top_qid'], inplace=True)
