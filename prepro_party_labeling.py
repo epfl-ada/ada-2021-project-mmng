@@ -35,14 +35,6 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
         speaker_attribute Data frame labeled by party
     """
 
-    df_sa = df_sa[['id', 'label', 'party', 'occupation']]
-
-    # If desired drop people who weren't ever part of congress
-    # (have no US_congress_bio_ID).
-    if drop_non_congress:
-        df_sa.dropna(subset=['US_congress_bio_ID'], inplace=True)
-
-
     # Uses wikidata qid to assign a 1 letter party code to each party
     # (see function below). A similar function could be used for UK political
     # parties
@@ -86,12 +78,24 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
 
         return df_has_party
 
+    #-------------------------------------------------------------------------
+
+    df_sa = df_sa[['id', 'label', 'party', 'occupation']]
+
+    # If desired drop people who weren't ever part of congress
+    # (have no US_congress_bio_ID).
+    if drop_non_congress:
+        df_sa.dropna(subset=['US_congress_bio_ID'], inplace=True)
+
     # Label people by party
     df_sa = sa_label_parties(df_sa)
 
     if extra_manual_labeling:
         manually_label_party(df_sa, id_inf_D, 'D')
         manually_label_party(df_sa, id_inf_R, 'R')
+
+    df_sa.dropna(subset=['label'], inplace=True)
+    # df_sa['label'] = df_sa['label'].map(lambda x: x.lower())
 
     # Drop unecessary columns from the data
     if keep_columns != None:
@@ -142,6 +146,7 @@ def merge_quotes_to_speakers(df_quotes, df_sa_labeled):
         df_merged = df_quotes.merge(df_sa_labeled, left_on='top_qid', right_on='id')
 
         #Drop top_qid and label since qid and speaker contain the same info
+        df_merged['speaker'] = df_merged['label']
         df_merged.drop(['top_qid', 'label'], axis=1, inplace=True)
         return df_merged
 
