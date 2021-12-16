@@ -197,7 +197,7 @@ def _run_pipeline(input_paths:list, output_path:str, label_party:bool,
             print('\n------------------------------------------------------------------')
 
 
-def run_party_labeling(input_paths, output_path, drop_cols=['phase', 'urls', 'probas'], chunks:int=-1, chunksize:int=100_000):
+def run_party_labeling(input_paths, output_path, drop_cols=['phase', 'urls', 'probas', 'numOccurrences'], chunks:int=-1, chunksize:int=100_000):
     print('==================================================================')
     print(' Starting party_labeling')
 
