@@ -174,7 +174,7 @@ def run_party_labeling(input_paths, output_path, drop_cols=['phase', 'urls', 'pr
     print('==================================================================')
     print(' Starting party_labeling')
 
-    _run_pipeline(input_paths, output_path, label_party=True, clean_speaker=True, clean_quotes=False, drop_cols=drop_cols, chunks=chunks, chunksize=chunksize)
+    _run_pipeline(input_paths, output_path, label_party=True, clean_speaker=False, clean_quotes=False, drop_cols=drop_cols, chunks=chunks, chunksize=chunksize)
 
 def _run_cleaning(input_path, output_path, cleaning_mode, drop_cols=[], chunks:int=-1, chunksize:int=100_000):
     print('==================================================================')
