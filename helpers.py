@@ -154,6 +154,8 @@ MODEL_MULTINOMIALNB_NGRAM13 = MODELS_FOLDER + 'model_multinomialnb_tfidf_ngram=(
 VECTORIZER_NGRAM13_V2 = MODELS_FOLDER + 'vectorizer_tfidf_ngram=(1,3)_v2.pkl'
 MODEL_MULTINOMIALNB_NGRAM13_V2 = MODELS_FOLDER + 'model_multinomialnb_tfidf_ngram=(1,3)_v2.pkl'
 
+VECTORIZER_FINAL = MODELS_FOLDER + 'vectorizer_final.pkl'
+MODEL_FINAL = MODELS_FOLDER + 'classifier_final.pkl'
 
 #=============================================================================
 
