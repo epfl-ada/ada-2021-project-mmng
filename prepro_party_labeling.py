@@ -167,7 +167,7 @@ def select_best_qids_manual(df):
 
     # Drop any quotes that has multiple qid attributed to it
     df_qid_lengths = df_res['qids'].map(lambda x: len(x))
-    df_res = df_res[df_qid_lengths == 1]
+    df_res = df_res[df_qid_lengths == 1].copy()
 
     df_res['top_qid'] = df_res['qids'].map(lambda x: x[0])
 

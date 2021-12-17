@@ -230,6 +230,18 @@ def downsample(df:pd.DataFrame, label_col_name:str, force_sample_n=None) -> pd.D
             )
 
 
+def downsample2(df):
+    counts = df.party_label.value_counts()
+
+    if counts['R'] > counts['D']:
+        df_d = df[df.party_label == 'D']
+        df_r = df[df.party_label == 'R'].sample(len(df[df.party_label == 'D']))
+    else:
+        df_d = df[df.party_label == 'D'].sample(len(df[df.party_label == 'R']))
+        df_r = df[df.party_label == 'R']
+
+    return pd.concat([df_d, df_r])
+
 def drop_short_quotes(df, threshold_quantile, quote_col_name='quotation_clean'):
     """
     Calculates the length of all given quotes and drops any quotes that are
