@@ -108,7 +108,7 @@ def speaker_attribute_processing(df_sa, drop_non_congress=False,
 
 def merge_quotes_to_speakers(df_quotes, df_sa_labeled):
 
-    def quotes_qid_cleanup(df_quotes, qid_strategy='heuristic'):
+    def quotes_qid_cleanup(df_quotes, qid_strategy='manual'):
         """
         Internal function. Drops quotes which don't have a qid assigned
         to them and picks the best qid (if there are several, heuristically)
@@ -128,8 +128,7 @@ def merge_quotes_to_speakers(df_quotes, df_sa_labeled):
         elif qid_strategy == 'manual':
             # Drop any quotes that have multiple qids attributed
             # Except for manually configured speakers
-            raise NotImplementedError()
-            select_best_qids_manual(df_res)
+            df_res = select_best_qids_manual(df_res)
 
         elif qid_strategy == 'heuristic':
             select_best_qids_heuristical_inplace(df_res)
@@ -161,9 +160,10 @@ def manually_label_party(df_sa, qids, party_label):
 
 
 def select_best_qids_manual(df):
-    df_res = df
+    def intersection(lst1, lst2):
+        return list(set(lst1) & set(lst2))
 
-    # TODO add manual system
+    df_res = df
 
     # Drop any quotes that has multiple qid attributed to it
     df_qid_lengths = df_res['qids'].map(lambda x: len(x))
@@ -171,7 +171,19 @@ def select_best_qids_manual(df):
 
     df_res['top_qid'] = df_res['qids'].map(lambda x: x[0])
 
+    # Now we manually select the qid of famous politicians
+    df_multiqids = df.loc[~df.index.isin(df_res.index)]
 
+    # Now we take the top_qid corresponding the the qid of someone in our manually
+    # defined lists
+    id_inf = id_inf_R + id_inf_D
+    df_manually_selected = df_multiqids.loc[df_multiqids.qids.map(lambda qids: len(intersection(qids, id_inf)) == 1)].copy()
+    df_manually_selected['top_qid'] = df_manually_selected.qids.map(lambda qids: intersection(qids, id_inf)[0])
+
+    # Now we concatenate all speakers who only had 1 qid and those
+    # where we manually selected the best qid.
+    df_res = pd.concat([df_res, df_manually_selected])
+    return df_res
 
 
 def select_best_qids_heuristical_inplace(df):
