@@ -2,6 +2,7 @@
 from helpers import *
 from prepro_pipeline import *
 
+# Uncomment all code to run all the required preprocessing
 #-----------------------------------------------------------------------------
 # Part 1: Party labeling
 

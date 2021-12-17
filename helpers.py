@@ -54,27 +54,58 @@ DATA_FOLDER = 'data.nosync/' #DATA_MINI_FOLDER
 
 PREPROCESSED_FOLDER = DATA_FOLDER + 'processed/'
 
-#-----------------------------------------------------------------------------
-# New file sets
+#=============================================================================
+# Final files sets
 
+# Contain just labeled data with labels R, D and RD
+# RD is a special case for speakers who were both rep and dem but weren't
+# manually specified by us.
 QUOTES_LABELED = PREPROCESSED_FOLDER + 'quotes_labeled.json.bz2'
 QUOTES_2020_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_labeled.json.bz2'
 
-QUOTES_RD_LABELED = PREPROCESSED_FOLDER + 'quotes_rd_labeled.json.bz2'
-QUOTES_2020_RD_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_rd_labeled.json.bz2'
-
-# File for final version of labeled and cleaned data WIP
+# File for final version of labeled and cleaned data
 QUOTES_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes_labeled_cleaned.json.bz2'
 QUOTES_2020_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes-2020_labeled_cleaned.json.bz2'
 
-QUOTES_RD_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes_rd_labeled_cleaned.json.bz2'
-QUOTES_2020_RD_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes-2020_rd_labeled_cleaned.json.bz2'
-
 # File containing 5 different variants of preprocessing. (To be used to find best level of preprosessing on 2020 quotes)
-QUOTES_2020_LABELED_CLEANED_VARIANTS = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants.json.bz2'
-# QUOTES_2020_LABELED_CLEANED_VARIANTS_MINI = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants_mini.json.bz2'
+QUOTES_2020_LABELED_CLEANED_VARIANTS = PREPROCESSED_FOLDER + 'quotes-2020_labeled_cleaned_variants.json.bz2'
 
 #-----------------------------------------------------------------------------
+
+QUOTES_LABELED_CLEANED_PREDICTED = PREPROCESSED_FOLDER + 'quotes_labeled_cleaned_predicted.json.bz2'
+QUOTES_LABELED_CLEANED_PREDICTED_PKL = PREPROCESSED_FOLDER + 'quotes_labeled_cleaned_predicted.pkl'
+
+#=============================================================================
+# New file sets
+
+#-----------------------------------------------------------------------------
+# Just labeled data
+
+# QUOTES_RD_LABELED = PREPROCESSED_FOLDER + 'quotes_rd_labeled.json.bz2'
+# QUOTES_2020_RD_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_rd_labeled.json.bz2'
+
+# QUOTES_RD_OQ_LABELED = PREPROCESSED_FOLDER + 'quotes_rd_oq_labeled.json.bz2'
+# QUOTES_2020_RD_OQ_LABELED = PREPROCESSED_FOLDER + 'quotes-2020_rd_oq_labeled.json.bz2'
+
+#-----------------------------------------------------------------------------
+# Labeled and cleaned data
+
+# QUOTES_RD_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes_rd_labeled_cleaned.json.bz2'
+# QUOTES_2020_RD_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes-2020_rd_labeled_cleaned.json.bz2'
+
+# QUOTES_RD_OQ_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes_rd_oq_labeled_cleaned.json.bz2'
+# QUOTES_2020_RD_OQ_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes-2020_rd_oq_labeled_cleaned.json.bz2'
+
+#-----------------------------------------------------------------------------
+# Labeled and cleaned in 5 different ways
+
+# File containing 5 different variants of preprocessing. (To be used to find best level of preprosessing on 2020 quotes)
+# QUOTES_2020_LABELED_CLEANED_VARIANTS = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants.json.bz2'
+# QUOTES_2020_LABELED_CLEANED_VARIANTS_MINI = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants_mini.json.bz2'
+
+# QUOTES_2020_RD_OQ_LABELED_CLEANED_VARIANTS = PREPROCESSED_FOLDER + 'quotes-2020_rd_oq_labeled_cleaned_variants.json.bz2'
+
+#=============================================================================
 
 QUOTES_ALL_TIME_PROCESSED = PREPROCESSED_FOLDER + 'fulldataset_fullypreprocessed.json.bz2'
 
@@ -120,6 +151,10 @@ MODELS_FOLDER = DATA_FOLDER + 'models/'
 VECTORIZER_NGRAM13 = MODELS_FOLDER + 'vectorizer_tfidf_ngram=(1,3).pkl'
 MODEL_MULTINOMIALNB_NGRAM13 = MODELS_FOLDER + 'model_multinomialnb_tfidf_ngram=(1,3).pkl'
 
+VECTORIZER_NGRAM13_V2 = MODELS_FOLDER + 'vectorizer_tfidf_ngram=(1,3)_v2.pkl'
+MODEL_MULTINOMIALNB_NGRAM13_V2 = MODELS_FOLDER + 'model_multinomialnb_tfidf_ngram=(1,3)_v2.pkl'
+
+
 #=============================================================================
 
 # Fixing paths for different os's
@@ -136,11 +171,41 @@ def load_pickle(path):
         return pickle.load(file)
 
 
-def save_pickle(model, path):
+def save_pickle(obj, path):
     """Save a model/object into a pickle file"""
     with open(path, 'wb') as file:
-        pickle.dump(model, file)
+        pickle.dump(obj, file)
 
+
+#=============================================================================
+
+influential_D = [
+    'Hilary Clinton','Barack Obama','Bernie Sanders',
+    'Bill Clinton','Joe Biden','Kamala Harris','Nancy Pelosi','Jimmy Carter',
+    'Al Gore','Andrew Cuomo','Elizabeth Warren','Michael Bloomberg',
+    'Alexandria Ocasio-Cortez','Charles Schumer','John Kerry'
+    ]
+id_inf_D = [
+    'Q6294','Q76','Q359442','Q1124','Q6279','Q10853588','Q170581','Q23685',
+    'Q19673','Q11673','Q434706','Q607','Q55223040','Q380900','Q22316']
+
+# influential_D = list(zip(influential_D, id_inf_D))
+# del id_inf_D
+
+#source https://today.yougov.com/ratings/politics/fame/Republicans/all
+influential_R = [
+    'George bush','Donald Trump','Arnold Schwarzenegger',
+    'Mike Pence','Ted Cruz','Sarah Palin','Mitch McConnel','Mitt Romney',
+    'Dick Cheney','Jeb Bush','Chris Christie','Rand Paul','Ben Carson',
+    'Henry Kissinger','Marco Rubio'
+    ]
+id_inf_R = [
+    'Q207','Q22686','Q2685','Q24313','Q2036942','Q43144','Q355522',
+    'Q4496','Q48259','Q221997','Q63879','Q463557','Q816459','Q66107','Q324546'
+    ]
+
+# influential_R = list(zip(influential_R, id_inf_R))
+# del id_inf_R
 
 #=============================================================================
 
