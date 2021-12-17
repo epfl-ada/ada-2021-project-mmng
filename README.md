@@ -60,7 +60,7 @@ We will upload the pretrained models and the vectorizer on google drive in order
 # Improvements/still to do
 The first question we ask is whether it is worth trying to identify apolitical messages as a supplementary class. For example we thought that if a politician, Democrat or Republican, makes a statement about sport it should not be classified as politics by our model. In this direction, the statements of some groups of people (such as sportspeople) could be classified as apolitical. However, this task remains difficult to do cleanly (a politician might be politically engaged) and we are not sure how to implement it.
 # Result analysis
-Please take a look at the website: https://ogimgio.github.io/ada-mmng-website/
+Please take a look at the website: [Amercian Data Analysis Website](https://ogimgio.github.io/ada-mmng-website/)
 # Code organization
 
 ## Notebooks
