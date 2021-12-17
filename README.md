@@ -73,6 +73,8 @@ Please take a look at the website: https://ogimgio.github.io/ada-mmng-website/
 
 - [part3_1-cross_validation.ipynb](part3_1-cross_validation.ipynb): Contains our cross validations benchmarks of different models to use for our prediction tasks. We concluded the best model to use for our task here.
 - [part3_2-model_training.ipynb](part3_2-model_training.ipynb): Using the outcomes from the previous notebook we train our model, run predictions on all our data and save the model and data with predictions. The RAM requirements and time to run all the notebook were quite considerable, saving and reusing the products of these expensive computations helped us save time later on.
+- [part3_3-political_distribution_analysis.ipynb](part3_3-political_distribution_analysis.ipynb): Initial analyses. We explore the distributions of political opinions using our model and find the common words in different specific contexts.
+- [part3_4-time_series_analysis.ipynb](part3_4-time_series_analysis.ipynb): Detecting and visualizing political trends over time.
 
 
 ## Scripts and project wide utilities
