@@ -1,5 +1,6 @@
 # ADA Quotebank Project - American Data Analysis
-For a high level introduction to this project please check our website: https://ogimgio.github.io/ada-mmng-website/
+For a high level introduction to this project please check our website: [Amercian Data Analysis Website](https://ogimgio.github.io/ada-mmng-website/)
+
 Project Members: Mauro Leidi, Gioele Monopoli, Nicolas Baldwin, Michael Roust
 
 # Abstract
@@ -56,22 +57,31 @@ To get a first idea of the difficulty of the task we faced, we have visualized t
 As we can see the data does not appear linearly separable with such a simple method.
 # Additional remarks
 We will upload the pretrained models and the vectorizer on google drive in order to make them accessible to anyone. The data is huge and takes time to preprocess it completely. The preprocessed data will be on the drive as well with the correct name and location used in the paths of the helper module. Everything is in a data.nosync folder that need to be in the rootpath of the project.
-# Improvements/still to do 
-The first question we ask is whether it is worth trying to identify apolitical messages as a supplementary class. For example we thought that if a politician, Democrat or Republican, makes a statement about sport it should not be classified as politics by our model. In this direction, the statements of some groups of people (such as sportspeople) could be classified as apolitical. However, this task remains difficult to do cleanly (a politician might be politically engaged) and we are not sure how to implement it. 
+# Improvements/still to do
+The first question we ask is whether it is worth trying to identify apolitical messages as a supplementary class. For example we thought that if a politician, Democrat or Republican, makes a statement about sport it should not be classified as politics by our model. In this direction, the statements of some groups of people (such as sportspeople) could be classified as apolitical. However, this task remains difficult to do cleanly (a politician might be politically engaged) and we are not sure how to implement it.
 # Result analysis
 Please take a look at the website: https://ogimgio.github.io/ada-mmng-website/
 # Code organization
 
-### Notebooks
-- [raw_full_data_exploration.ipynb](raw_full_data_exploration.ipynb): Notebook containing surface analyses on the complete raw Quotebank dataset.
-- [final_notebook.ipynb](final_notebook.ipynb): Notebook containing all the in depth analyses of the data. Analyses are ran on (at times samples of) raw and cleaned 2020 datas as performing them on the full dataset would be largely impractical and provide little added benefit.
+## Notebooks
 
-### Scripts and project wide utilities
+### Project part 2
+- [part2-raw_full_data_exploration.ipynb](part2-raw_full_data_exploration.ipynb): Notebook containing surface analyses on the complete raw Quotebank dataset.
+- [part2-final_notebook.ipynb](part2-final_notebook.ipynb): Notebook containing all the in depth analyses of the data. Analyses are ran on (at times samples of) raw and cleaned 2020 datas as performing them on the full dataset would be largely impractical and provide little added benefit.
+
+### Project part 3
+
+- [part3_1-cross_validation.ipynb](part3_1-cross_validation.ipynb): Contains our cross validations benchmarks of different models to use for our prediction tasks. We concluded the best model to use for our task here.
+- [part3_2-model_training.ipynb](part3_2-model_training.ipynb): Using the outcomes from the previous notebook we train our model, run predictions on all our data and save the model and data with predictions. The RAM requirements and time to run all the notebook were quite considerable, saving and reusing the products of these expensive computations helped us save time later on.
+
+
+## Scripts and project wide utilities
 - [helpers.py](helpers.py): Project wide constants, file paths, helper and utility functions.
-- [prepro_pipeline.py](prepro_pipeline.py): Executable that perfoms the 1st part of our data preprocessing pipeline. Currently performs the following operations:
+- [prepro_run.py](prepro_run.py): Executable to run all our preprocessing pipelines.
+- [prepro_pipeline.py](prepro_pipeline.py): Functions that perfom our data preprocessing pipeline. Can perform the following operations:
   - Labels quotes by the political party (Republican or Democrat) of the speaker attributed to each quote. Using functions from [prepro_party_labeling.py](prepro_party_labeling.py)
   - Drops unused columns to reduce dataset footprint.
-  - Cleans quotation text. Performs procedures such as lowercasing all characters, removing diacritics and more. See detailed description in
+  - Cleans quotation text. Performs procedures such as lowercasing all characters, removing diacritics and more. Optionally, allows creating a dataset with various different variants of text cleaning used for cross validation and identifying our best model.
 - [prepro_party_labeling.py](prepro_party_labeling.py): Labels data by merging Quotebank quotes data to the Wikidata speaker_attributes dump. Any quotes that have no speaker attributed to them or have a speaker that is neither Republican or Democrat are dropped.
 - [perform_general_analysis.py](perform_general_analysis.py) Functions for raw full data exploration.
 - [drop_similar_quotes.py](drop_similar_quotes.py) Similar/duplicate quotes removal logic.
