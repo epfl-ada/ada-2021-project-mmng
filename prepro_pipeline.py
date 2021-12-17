@@ -18,6 +18,9 @@ from nltk import word_tokenize
 #=============================================================================
 # Preprocessing functions
 
+# As described in part3-cross_validation these function provided all the
+# different levels of text cleaning we wished to test.
+
 def cleanA(series):
     series = hp.fillna(series)
     # series = hp.lowercase(series)
@@ -75,7 +78,7 @@ def cleanE(series):
 
     return series
 
-
+# Selection of desired cleaning function to apply to whole dataset.
 clean = cleanE
 
 cleaning_functions = [
@@ -169,6 +172,11 @@ def _run_pipeline(input_paths:list, output_path:str, label_party:bool,
 
             print('\n------------------------------------------------------------------')
 
+# Preprocessing pipeline has been split into 2 steps.
+# 1. We label quotes with the political party of their speaker
+# 2. We clean quotes
+# All steps in the pipeline have multiple toggleable options. Default arguments
+# have been optimized and should produce the best data.
 
 def run_party_labeling(input_paths, output_path, drop_cols=['phase', 'urls', 'probas', 'numOccurrences'], chunks:int=-1, chunksize:int=100_000):
     print('==================================================================')

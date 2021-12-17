@@ -55,7 +55,7 @@ DATA_FOLDER = 'data.nosync/' #DATA_MINI_FOLDER
 PREPROCESSED_FOLDER = DATA_FOLDER + 'processed/'
 
 #=============================================================================
-# Final files sets
+# Final files sets - for part 3
 
 # Contain just labeled data with labels R, D and RD
 # RD is a special case for speakers who were both rep and dem but weren't
@@ -163,7 +163,7 @@ def fixpath(path):
 
 
 #=============================================================================
-# Model loading
+# Object/Model saving and loading
 
 def load_pickle(path):
     """Load a pickle file. Returns the loaded model/object"""
@@ -178,6 +178,10 @@ def save_pickle(obj, path):
 
 
 #=============================================================================
+# Manual labeling constants
+
+# Lists for manually labeling the most popular politicans of Democrats and
+# Republicans.
 
 influential_D = [
     'Hilary Clinton','Barack Obama','Bernie Sanders',
@@ -209,6 +213,7 @@ id_inf_R = [
 
 #=============================================================================
 
+# Converts R, D labels to numerical values for model training.
 def convert_labels(y_textual):
     return np.array([-1 if label=='R' else 1 for label in y_textual])
 
@@ -229,7 +234,7 @@ def downsample(df:pd.DataFrame, label_col_name:str, force_sample_n=None) -> pd.D
             .reset_index(drop=True)
             )
 
-
+# Downsampling function that doesn't modify indexes
 def downsample2(df):
     counts = df.party_label.value_counts()
 
@@ -259,20 +264,13 @@ def drop_short_quotes(df, threshold_quantile, quote_col_name='quotation_clean'):
 
     return df
 
-
+# Used for printing cross validation results
 def aggregate_cross_validate_results(res):
     return {item: (value.mean(), value.std()) for (item, value) in res.items()}
 
-
+# Nicely display cross validation results
 def print_cross_validate_results(res):
-    # scoring=['accuracy', 'precision', 'recall', 'f1']
-    # res = cross_validate(pipeline, X, y, scoring=scoring, cv=3)
     res = aggregate_cross_validate_results(res)
-
-    # Code isn't pretty but prints nice output!
-    # print(f'Col: {col}')
-
-    # print(f'X shape: {X.shape}')
 
     for (key, value) in res.items():
         print(f'\t{key:20} - \tavg: {value[0]:.3f}\tstd: {value[1]:.3f}')

@@ -156,10 +156,13 @@ def merge_quotes_to_speakers(df_quotes, df_sa_labeled):
 
 
 def manually_label_party(df_sa, qids, party_label):
+    """Function for applying manual labeling of party. Used for speakers such as Donald Trump"""
     df_sa.loc[df_sa.id.map(lambda x: x in qids), 'party_label'] = party_label
 
 
 def select_best_qids_manual(df):
+    """Function for selecting the best qid. Uses a manual approach for better performance."""
+
     def intersection(lst1, lst2):
         return list(set(lst1) & set(lst2))
 
@@ -187,6 +190,8 @@ def select_best_qids_manual(df):
 
 
 def select_best_qids_heuristical_inplace(df):
+    """Function for selecting the best qid. Uses a heuristic approach. Inplace!"""
+
     def select_best_qid(qids:list):
 
         # Directly return qid if only 1 qid
