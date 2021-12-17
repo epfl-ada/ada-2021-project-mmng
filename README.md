@@ -40,15 +40,15 @@ The work was split between the group in the following way (Everyone did a bit of
 Task                    |Responsable
 ------------------------|-------------
 Data Exploration        |    Mauro
-Merge Wikidata Quotebank|    Michael
-Preprocess text data    |    Nicky
-text data Vectorization |    Gioele
-Model exploratios       | Nicky  & Mauro
-Time series analyisis   | Gioele & Michael
-Data story redaction    | Nicky & Mauro
+Merge Wikidata Quotebank|    Gioele
+Preprocess text data    |    Nicolas
+Text data Vectorization |    Michael
+Model exploration       | Nicolas  & Mauro
+Pipelines organization  | Nicolas & Michael
+Time series analysis    | Gioele & Michael
+Data story redaction    | Nicolas & Mauro
 Web-site creation       | Gioele & Mauro
-github/code organization| Michael
-pipelines organization  | Nicky & Michael
+Github/code organization| Michael
 
 # Strategy
 In order to deal with such a big dataset we are rewriting our datasets in pickle format. This allow for efficient reading/writing. In addition, as suggested, when is necessary we always process data either line-by-line either in chunks. We encountered a RAM overload problem when tring to vectorize the data with tf-idf model, but managed to solve them thanks to algorithms that allows iterable as inputs, and do not load all data into memory.
@@ -66,24 +66,24 @@ Please take a look at the website: [Amercian Data Analysis Website](https://ogim
 ## Notebooks
 
 ### Project part 2
-- [part2-raw_full_data_exploration.ipynb](part2-raw_full_data_exploration.ipynb): Notebook containing surface analyses on the complete raw Quotebank dataset.
-- [part2-final_notebook.ipynb](part2-final_notebook.ipynb): Notebook containing all the in depth analyses of the data. Analyses are ran on (at times samples of) raw and cleaned 2020 datas as performing them on the full dataset would be largely impractical and provide little added benefit.
+- [part2-raw_full_data_exploration.ipynb](part2-raw_full_data_exploration.ipynb) : Notebook containing surface analyses on the complete raw Quotebank dataset.
+- [part2-final_notebook.ipynb](part2-final_notebook.ipynb) : Notebook containing all the in depth analyses of the data. Analyses are ran on (at times samples of) raw and cleaned 2020 datas as performing them on the full dataset would be largely impractical and provide little added benefit.
 
 ### Project part 3
 
-- [part3_1-cross_validation.ipynb](part3_1-cross_validation.ipynb): Contains our cross validations benchmarks of different models to use for our prediction tasks. We concluded the best model to use for our task here.
-- [part3_2-model_training.ipynb](part3_2-model_training.ipynb): Using the outcomes from the previous notebook we train our model, run predictions on all our data and save the model and data with predictions. The RAM requirements and time to run all the notebook were quite considerable, saving and reusing the products of these expensive computations helped us save time later on.
-- [part3_3-political_distribution_analysis.ipynb](part3_3-political_distribution_analysis.ipynb): Initial analyses. We explore the distributions of political opinions using our model and find the common words in different specific contexts.
-- [part3_4-time_series_analysis.ipynb](part3_4-time_series_analysis.ipynb): Detecting and visualizing political trends over time.
-- [part3_5-topic_and_model_evaluation.ipynb](part3_5-topic_and_model_evaluation.ipynb): Evaluating the performances and shortcomings of our model and examining polarization of parties on certain topics.
+- [part3_1-cross_validation.ipynb](part3_1-cross_validation.ipynb) : Contains our cross validations benchmarks of different models to use for our prediction tasks. We concluded the best model to use for our task here.
+- [part3_2-model_training.ipynb](part3_2-model_training.ipynb) : Using the outcomes from the previous notebook we train our model, run predictions on all our data and save the model and data with predictions. The RAM requirements and time to run all the notebook were quite considerable, saving and reusing the products of these expensive computations helped us save time later on.
+- [part3_3-political_distribution_analysis.ipynb](part3_3-political_distribution_analysis.ipynb) : Initial analyses. We explore the distributions of political opinions using our model and find the common words in different specific contexts.
+- [part3_4-time_series_analysis.ipynb](part3_4-time_series_analysis.ipynb) : Detecting and visualizing political trends over time.
+- [part3_5-topic_and_model_evaluation.ipynb](part3_5-topic_and_model_evaluation.ipynb) : Evaluating the performances and shortcomings of our model and examining polarization of parties on certain topics.
 
 ## Scripts and project wide utilities
-- [helpers.py](helpers.py): Project wide constants, file paths, helper and utility functions.
-- [prepro_run.py](prepro_run.py): Executable to run all our preprocessing pipelines.
-- [prepro_pipeline.py](prepro_pipeline.py): Functions that perfom our data preprocessing pipeline. Can perform the following operations:
+- [helpers.py](helpers.py) : Project wide constants, file paths, helper and utility functions.
+- [prepro_run.py](prepro_run.py) : Executable to run all our preprocessing pipelines.
+- [prepro_pipeline.py](prepro_pipeline.py) : Functions that perfom our data preprocessing pipeline. Can perform the following operations:
   - Labels quotes by the political party (Republican or Democrat) of the speaker attributed to each quote. Using functions from [prepro_party_labeling.py](prepro_party_labeling.py)
   - Drops unused columns to reduce dataset footprint.
   - Cleans quotation text. Performs procedures such as lowercasing all characters, removing diacritics and more. Optionally, allows creating a dataset with various different variants of text cleaning used for cross validation and identifying our best model.
-- [prepro_party_labeling.py](prepro_party_labeling.py): Labels data by merging Quotebank quotes data to the Wikidata speaker_attributes dump. Any quotes that have no speaker attributed to them or have a speaker that is neither Republican or Democrat are dropped.
-- [perform_general_analysis.py](perform_general_analysis.py) Functions for raw full data exploration.
-- [drop_similar_quotes.py](drop_similar_quotes.py) Similar/duplicate quotes removal logic.
+- [prepro_party_labeling.py](prepro_party_labeling.py) : Labels data by merging Quotebank quotes data to the Wikidata speaker_attributes dump. Any quotes that have no speaker attributed to them or have a speaker that is neither Republican or Democrat are dropped.
+- [perform_general_analysis.py](perform_general_analysis.py) : Functions for raw full data exploration.
+- [drop_similar_quotes.py](drop_similar_quotes.py) : Similar/duplicate quotes removal logic.
