@@ -171,10 +171,10 @@ def load_pickle(path):
         return pickle.load(file)
 
 
-def save_pickle(model, path):
+def save_pickle(obj, path):
     """Save a model/object into a pickle file"""
     with open(path, 'wb') as file:
-        pickle.dump(model, file)
+        pickle.dump(obj, file)
 
 
 #=============================================================================
