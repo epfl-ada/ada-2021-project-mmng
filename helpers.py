@@ -68,7 +68,7 @@ QUOTES_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes_labeled_cleaned.json.bz2'
 QUOTES_2020_LABELED_CLEANED = PREPROCESSED_FOLDER + 'quotes-2020_labeled_cleaned.json.bz2'
 
 # File containing 5 different variants of preprocessing. (To be used to find best level of preprosessing on 2020 quotes)
-QUOTES_2020_LABELED_CLEANED_VARIANTS = PREPROCESSED_FOLDER + 'quotes-2020-labeled_cleaned_variants.json.bz2'
+QUOTES_2020_LABELED_CLEANED_VARIANTS = PREPROCESSED_FOLDER + 'quotes-2020_labeled_cleaned_variants.json.bz2'
 
 #-----------------------------------------------------------------------------
 
